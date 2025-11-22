@@ -1,6 +1,5 @@
 @extends('layouts.master-without-page-title')
 @section('scripts')
-    <script src="{{ URL::asset('build/js/app.js') }}"></script>
     <!-- Include Toastr for notifications -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -10,6 +9,7 @@
     <link href="{{ URL::asset('build/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <script src="{{ URL::asset('build/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <script>
+    $(document).ready(function() {
         // Configuration for toastr notifications
         toastr.options = {
             closeButton: true,
@@ -39,7 +39,239 @@
             // For non-shift/rate messages, use the original function
             return originalToastrSuccess.call(this, message, title, options);
         };
+        
+        // Fallback function to ensure rates load
+        console.log('Page loaded, checking if rate-management.js is loaded...');
+        
+        // We'll defer to the external JS, but provide a safety check
+        setTimeout(function() {
+            if ($('#pumpsAccordion').find('.accordion-item').length === 0) {
+                console.log('No accordion items found, trying to reload...');
+                // Try to load rates directly in the page
+                $.ajax({
+                    url: '/api/all-pumps-with-items-rates',
+                    type: 'GET',
+                    success: function(response) {
+                        console.log('Fallback response:', response);
+                        if (response.pumps && response.pumps.length > 0) {
+                            $('#pumpsAccordion').html('<div class="alert alert-info">Rates loaded, but display script failed. Please check console for errors and refresh the page.</div>');
+                        } else {
+                            $('#pumpsAccordion').html('<div class="alert alert-info">No pumps found.</div>');
+                        }
+                    },
+                    error: function(xhr) {
+                        $('#pumpsAccordion').html('<div class="alert alert-danger">Error loading pump data.</div>');
+                        console.error('Error loading pump data in fallback:', xhr.responseText);
+                    }
+                });
+            }
+        }, 3000);
+        
+        // Initialize bootstrap datepicker for shifts filter
+        $("#shifts_date_picker").datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            todayHighlight: true,
+            todayBtn: "linked",
+        }).on('changeDate', function(e) {
+            // Format date for server (YYYY-MM-DD)
+            const selectedDate = e.date;
+            const formattedDate = selectedDate.getFullYear() + '-' + 
+                                 ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + 
+                                 ('0' + selectedDate.getDate()).slice(-2);
+            
+            // Set formatted date in hidden field
+            document.getElementById('formatted_shift_date').value = formattedDate;
+            
+            // Submit the form when a date is selected
+            $("#shiftsDateFilterForm").submit();
+        });
+        
+        // Time input handling
+        const startTimeInput = document.getElementById('start_time');
+        const endTimeInput = document.getElementById('end_time');
+        const editStartTimeInput = document.getElementById('edit_start_time');
+        const editEndTimeInput = document.getElementById('edit_end_time');
+
+        // Function to format time in MySQL format (HH:mm:ss)
+        function formatTime(timeInput) {
+            if (!timeInput || !timeInput.value) return '00:00:00';
+            const time = timeInput.value;
+
+            // If time doesn't include seconds, add them
+            if (time.length === 5) {
+                return time + ':00';
+            }
+            return time;
+        }
+
+        // Set default time values with seconds
+        if (startTimeInput) startTimeInput.value = '00:00:00';
+        if (endTimeInput) endTimeInput.value = '00:00:00';
+        if (editStartTimeInput) editStartTimeInput.value = '00:00:00';
+        if (editEndTimeInput) editEndTimeInput.value = '00:00:00';
+
+        // Rate management functions
+        function initializeRateManagement() {
+            // Handle pump selection for rate creation
+            $('#pump_id').change(function() {
+                var pumpId = $(this).val();
+                if (pumpId) {
+                    $.get('/api/pumps/' + pumpId + '/items', function(items) {
+                        var options = '<option value="">Select an item</option>';
+                        items.forEach(function(item) {
+                            options += '<option value="' + item.id + '">' + item.name + '</option>';
+                        });
+                        $('#item_id').html(options).prop('disabled', false);
+                    });
+                } else {
+                    $('#item_id').html('<option value="">First select a pump</option>').prop('disabled', true);
+                }
+            });
+
+            // Handle edit rate modal
+            $('.edit-rate').click(function() {
+                var rate = $(this).data('rate');
+                var pump = $(this).data('pump');
+                var item = $(this).data('item');
+                var rateValue = $(this).data('rate-value');
+                var active = $(this).data('active');
+                var itemName = $(this).closest('tr').find('td:nth-child(3)').text().trim();
+
+                $('#editRateForm').attr('action', '/rates/' + rate);
+                $('#edit_pump_id').val(pump);
+                $('#edit_rate').val(rateValue);
+                $('#edit_is_active').prop('checked', active == 1);
+
+                // Set item name and id (readonly, not dropdown)
+                $('#edit_item_name').val(itemName);
+                $('#edit_item_id').val(item);
+
+                $('#editRateModal').modal('show');
+            });
+
+            // Intercept Edit Rate form submit to use AJAX and update in-place
+            $('#editRateForm').on('submit', function(e) {
+                e.preventDefault();
+                var $form = $(this);
+                var url = $form.attr('action');
+                var formData = $form.serialize();
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'X-HTTP-Method-Override': 'PUT'
+                    },
+                    success: function(response) {
+                        // Display success message and hide modal
+                        $('#editRateModal').modal('hide');
+                        // Show success alert
+                        var successAlert = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                            'Rate updated successfully' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                            '</div>';
+                        $('.alert-container').html(successAlert);
+                        // Reload the page after a short delay
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    },
+                    error: function(xhr) {
+                        // Show error message
+                        var errorMessage = 'Failed to update rate. Please check your input.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+                        alert(errorMessage);
+                    }
+                });
+            });
+
+            // Add rotation animation to collapse icons
+            $('.card-header[data-bs-toggle="collapse"]').on('click', function() {
+                $(this).find('.fa-chevron-down').toggleClass('fa-rotate-180');
+            });
+            
+            // Handle bulk form submissions with AJAX
+            $(document).on('submit', '.pump-rate-form', function(e) {
+                e.preventDefault();
+                var $form = $(this);
+                var formData = $form.serialize();
+                var pumpName = $form.closest('.accordion-item').find('.accordion-button').text().trim();
+                
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Show success message
+                        var successAlert = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                            'Rates updated successfully for ' + pumpName + '.' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                            '</div>';
+                        $('.alert-container').html(successAlert);
+                        
+                        // Reload pump data after successful update
+                        if (typeof loadAllPumpsWithRates === 'function') {
+                            loadAllPumpsWithRates();
+                        }
+                    },
+                    error: function(xhr) {
+                        var errorMessage = 'Failed to update rates. Please check your input.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+                        
+                        // Show error message
+                        var errorAlert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                            errorMessage +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                            '</div>';
+                        $('.alert-container').html(errorAlert);
+                    }
+                });
+            });
+        }
+
+        // Initialize rate management
+        initializeRateManagement();
+
+        // Show/Hide pump user fields based on pump selection
+        function handlePumpSelection() {
+            const checkboxes = document.querySelectorAll('input[name="pumps[]"]:checked');
+            const selectedPumpIds = Array.from(checkboxes).map(cb => cb.value);
+            
+            // Show/hide pump user checkboxes
+            document.querySelectorAll('.pump-user-group').forEach(group => {
+                const pumpId = group.dataset.pump;
+                if (selectedPumpIds.includes(pumpId)) {
+                    group.style.display = 'block';
+                } else {
+                    group.style.display = 'none';
+                    // Uncheck checkboxes for hidden pumps
+                    group.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+                }
+            });
+        }
+
+        // Add event listeners to pump checkboxes
+        document.querySelectorAll('input[name="pumps[]"]').forEach(checkbox => {
+            checkbox.addEventListener('change', handlePumpSelection);
+        });
+
+        // Initial call to set proper state
+        handlePumpSelection();
+
+    });
     </script>
+    <!-- Load app.js after vendor scripts -->
+    <script src="{{ URL::asset('build/js/app.js') }}"></script>
     <script src="{{ URL::asset('js/rate-management.js') }}"></script>
     <script src="{{ URL::asset('js/shift-management.js') }}"></script>
 @endsection
@@ -174,37 +406,6 @@
             </div>
         @endif
     </div>
-    
-    <script>
-        // Fallback function to ensure rates load
-        $(document).ready(function() {
-            console.log('Page loaded, checking if rate-management.js is loaded...');
-            
-            // We'll defer to the external JS, but provide a safety check
-            setTimeout(function() {
-                if ($('#pumpsAccordion').find('.accordion-item').length === 0) {
-                    console.log('No accordion items found, trying to reload...');
-                    // Try to load rates directly in the page
-                    $.ajax({
-                        url: '/api/all-pumps-with-items-rates',
-                        type: 'GET',
-                        success: function(response) {
-                            console.log('Fallback response:', response);
-                            if (response.pumps && response.pumps.length > 0) {
-                                $('#pumpsAccordion').html('<div class="alert alert-info">Rates loaded, but display script failed. Please check console for errors and refresh the page.</div>');
-                            } else {
-                                $('#pumpsAccordion').html('<div class="alert alert-info">No pumps found.</div>');
-                            }
-                        },
-                        error: function(xhr) {
-                            $('#pumpsAccordion').html('<div class="alert alert-danger">Error loading pump data.</div>');
-                            console.error('Error loading pump data in fallback:', xhr.responseText);
-                        }
-                    });
-                }
-            }, 3000);
-        });
-    </script>
 
      <!-- Rate Management Table -->
     <div class="row">
@@ -861,459 +1062,9 @@
             </div>
         </div>
     </div>
-</div>    <script>
-        // Standalone function for datepicker initialization
-        $(document).ready(function() {
-            // Initialize bootstrap datepicker for shifts filter
-            $("#shifts_date_picker").datepicker({
-                format: 'dd/mm/yyyy',
-                autoclose: true,
-                todayHighlight: true,
-                todayBtn: "linked",
-            }).on('changeDate', function(e) {
-                // Format date for server (YYYY-MM-DD)
-                const selectedDate = e.date;
-                const formattedDate = selectedDate.getFullYear() + '-' + 
-                                     ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + 
-                                     ('0' + selectedDate.getDate()).slice(-2);
-                
-                // Set formatted date in hidden field
-                document.getElementById('formatted_shift_date').value = formattedDate;
-                
-                // Submit the form when a date is selected
-                $("#shiftsDateFilterForm").submit();
-            });
-        });
-        const endTimeInput = document.getElementById('end_time');
-        const editStartTimeInput = document.getElementById('edit_start_time');
-        const editEndTimeInput = document.getElementById('edit_end_time');
+</div>
 
-        // Function to format time in MySQL format (HH:mm:ss)
-        function formatTime(timeInput) {
-            const time = timeInput.value;
-            if (!time) return '00:00:00';
-
-            // If time doesn't include seconds, add them
-            if (time.length === 5) {
-                return time + ':00';
-            }
-            return time;
-        }
-
-        // Set default time values with seconds
-        if (startTimeInput) startTimeInput.value = '00:00:00';
-        if (endTimeInput) endTimeInput.value = '00:00:00';
-        if (editStartTimeInput) editStartTimeInput.value = '00:00:00';
-        if (editEndTimeInput) editEndTimeInput.value = '00:00:00';
-
-        // Rate management scripts
-        $(document).ready(function() {
-            // Handle pump selection for rate creation
-            $('#pump_id').change(function() {
-                var pumpId = $(this).val();
-                if (pumpId) {
-                    $.get('/api/pumps/' + pumpId + '/items', function(items) {
-                        var options = '<option value="">Select an item</option>';
-                        items.forEach(function(item) {
-                            options += '<option value="' + item.id + '">' + item.name + '</option>';
-                        });
-                        $('#item_id').html(options).prop('disabled', false);
-                    });
-                } else {
-                    $('#item_id').html('<option value="">First select a pump</option>').prop('disabled', true);
-                }
-            });
-
-                    });
-
-            // Handle edit rate modal
-            $('.edit-rate').click(function() {
-                var rate = $(this).data('rate');
-                var pump = $(this).data('pump');
-                var item = $(this).data('item');
-                var rateValue = $(this).data('rate-value');
-                var active = $(this).data('active');
-                var itemName = $(this).closest('tr').find('td:nth-child(3)').text().trim();
-
-                $('#editRateForm').attr('action', '/rates/' + rate);
-                $('#edit_pump_id').val(pump);
-                $('#edit_rate').val(rateValue);
-                $('#edit_is_active').prop('checked', active == 1);
-
-                // Set item name and id (readonly, not dropdown)
-                $('#edit_item_name').val(itemName);
-                $('#edit_item_id').val(item);
-
-                $('#editRateModal').modal('show');
-            });                // Intercept Edit Rate form submit to use AJAX and update in-place
-            $('#editRateForm').on('submit', function(e) {
-                e.preventDefault();
-                var $form = $(this);
-                var url = $form.attr('action');
-                var formData = $form.serialize();
-
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        'X-HTTP-Method-Override': 'PUT'
-                    },
-                    success: function(response) {
-                        // Display success message and hide modal
-                        $('#editRateModal').modal('hide');
-                        // Show success alert
-                        var successAlert = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                            'Rate updated successfully' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                            '</div>';
-                        $('.alert-container').html(successAlert);
-                        // Reload the page after a short delay
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1000);
-                    },
-                    error: function(xhr) {
-                        // Show error message
-                        var errorMessage = 'Failed to update rate. Please check your input.';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errorMessage = xhr.responseJSON.message;
-                        }
-                        alert(errorMessage);
-                    }
-                });
-            });
-
-            // Add event listener for pump selection in edit rate modal
-            $('#edit_pump_id').change(function() {
-                var pumpId = $(this).val();
-                // Save currently selected item id if any
-                var selectedItemId = $('#edit_item_id').val();
-                $('#edit_item_id').prop('disabled', true).html('<option value="">Loading...</option>');
-                if (pumpId) {
-                    $.ajax({
-                        url: '/api/pumps/' + pumpId + '/items',
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(items) {
-                            var options = '<option value="">Select an item</option>';
-                            if (Array.isArray(items) && items.length > 0) {
-                                items.forEach(function(it) {
-                                    // Show item name and (Nozzle #) if available
-                                    var label = it.name;
-                                    if (it.nozzle_number) {
-                                        label += ' (Nozzle #' + it.nozzle_number + ')';
-                                    }
-                                    options += '<option value="' + it.id + '"' + (it.id == selectedItemId ? ' selected' : '') + '>' + label + '</option>';
-                                });
-                            } else {
-                                options += '<option value="">No items found</option>';
-                            }
-                            $('#edit_item_id').html(options).prop('disabled', false);
-                        },
-                        error: function() {
-                            $('#edit_item_id').html('<option value="">Failed to load items</option>').prop('disabled', false);
-                        }
-                    });
-                } else {
-                    $('#edit_item_id').html('<option value="">First select a pump</option>').prop('disabled', true);
-                }
-            });
-
-            // Add rotation animation to collapse icons
-            $('.card-header[data-bs-toggle="collapse"]').on('click', function() {
-                $(this).find('.fa-chevron-down').toggleClass('fa-rotate-180');
-            });
-            
-            // Handle bulk form submissions with AJAX
-            $(document).on('submit', '.pump-rate-form', function(e) {
-                e.preventDefault();
-                var $form = $(this);
-                var formData = $form.serialize();
-                var pumpName = $form.closest('.accordion-item').find('.accordion-button').text().trim();
-                
-                $.ajax({
-                    url: $form.attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        // Show success message
-                        var successAlert = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                            'Rates updated successfully for ' + pumpName + '.' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                            '</div>';
-                        $('.alert-container').html(successAlert);
-                        
-                        // Reload pump data after successful update
-                        loadAllPumpsWithRates();
-                    },
-                    error: function(xhr) {
-                        var errorMessage = 'Failed to update rates. Please check your input.';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errorMessage = xhr.responseJSON.message;
-                        }
-                        
-                        // Show error message
-                        var errorAlert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                            errorMessage +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                            '</div>';
-                        $('.alert-container').html(errorAlert);
-                    }
-                });
-            });
-        });
-
-        const bulkShiftForm = document.getElementById('bulkShiftForm');
-        if (bulkShiftForm) {
-            bulkShiftForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const formData = new FormData(this);
-
-                // Format the times in MySQL format
-                const startTime = formatTime(startTimeInput);
-                const endTime = formatTime(endTimeInput);
-
-                // Update form data with formatted times
-                formData.set('start_time', startTime);
-                formData.set('end_time', endTime);
-
-                // Get the date values
-                const startDate = document.getElementById('start_date').value;
-                const endDate = document.getElementById('end_date').value;
-
-                // Update form data with dates
-                formData.set('start_date', startDate);
-                formData.set('end_date', endDate);
-
-                const pumps = formData.getAll('pumps[]');
-                const pumpUsers = formData.getAll('pump_users[]');
-                const nozzles = formData.getAll('nozzles[]');
-
-                console.log('Form data being sent:', {
-                    pumps: pumps,
-                    pumpUsers: pumpUsers,
-                    nozzles: nozzles,
-                    shiftName: formData.get('shift_name'),
-                    startTime: formData.get('start_time'),
-                    endTime: formData.get('end_time'),
-                    startDate: formData.get('start_date'),
-                    endDate: formData.get('end_date')
-                });
-
-                if (pumps.length === 0 || pumpUsers.length === 0 || nozzles.length === 0) {
-                    alert('Please select at least one item from each category (Pumps, Pump Users, and Nozzles)');
-                    return;
-                }
-
-                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-                if (!csrfToken) {
-                    alert('CSRF token not found. Please refresh the page and try again.');
-                    return;
-                }
-
-                fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    console.log('Response content-type:', response.headers.get('content-type'));
-                    
-                    if (!response.ok) {
-                        return response.text().then(text => {
-                            try {
-                                const json = JSON.parse(text);
-                                return Promise.reject(json);
-                            } catch (e) {
-                                console.error('Server returned non-JSON error:', text);
-                                return Promise.reject({ message: 'Server error occurred. Please check the console for details.' });
-                            }
-                        });
-                    }
-                    
-                    const contentType = response.headers.get('content-type');
-                    if (contentType && contentType.includes('application/json')) {
-                        return response.json();
-                    } else {
-                        return response.text().then(text => {
-                            console.error('Expected JSON but received:', text);
-                            return Promise.reject({ message: 'Server returned unexpected response format. Check console for details.' });
-                        });
-                    }
-                })
-                .then(data => {
-                    // Show success message
-                    var successAlert = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                        '<i class="fas fa-check-circle me-2"></i>' + 
-                        (data.message || 'Shifts created successfully') +
-                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                        '</div>';
-                    $('.alert-container').html(successAlert);
-                    
-                    // Reset the form
-                    this.reset();
-                    
-                    // Reload the page after a short delay to show updated shifts
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 1500);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    let errorMsg = 'An error occurred while creating the shifts. Please try again.';
-                    
-                    // Handle validation errors
-                    if (error.errors) {
-                        errorMsg = 'Validation failed:<br>';
-                        Object.keys(error.errors).forEach(key => {
-                            errorMsg += `• ${error.errors[key][0]}<br>`;
-                        });
-                    } else if (error.message) {
-                        errorMsg = error.message;
-                    }
-                    
-                    // Show error message
-                    var errorAlert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                        '<i class="fas fa-exclamation-triangle me-2"></i>' + errorMsg +
-                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                        '</div>';
-                    $('.alert-container').html(errorAlert);
-                });
-            });
-        }
-
-        // Handle edit shift functionality
-        const editShiftButtons = document.querySelectorAll('.edit-shift');
-        const editShiftForm = document.getElementById('editShiftForm');
-
-        if (editShiftButtons.length > 0 && editShiftForm) {
-            editShiftButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const shiftId = this.dataset.shift;
-                    const pumpId = this.dataset.pump;
-                    const pumpName = this.closest('tr').querySelector('td:nth-child(2)').textContent.trim();
-                    const pumpUserId = this.dataset.pumpUser;
-                    const nozzleId = this.dataset.nozzle;
-                    const shiftName = this.dataset.shiftName;
-                    const startTime = this.dataset.startTime;
-                    const endTime = this.dataset.endTime;
-                    const startDate = this.dataset.startDate;
-                    const endDate = this.dataset.endDate;
-                    const isActive = this.dataset.active;
-
-                    // Set the form action URL
-                    editShiftForm.action = `/shifts/${shiftId}`;
-
-                    // Populate form fields
-                    document.getElementById('edit_pump_name').value = pumpName;
-                    document.getElementById('edit_pump_id').value = pumpId;
-
-                    // Log the pump ID for debugging
-                    console.log('Setting pump_id:', pumpId);
-
-                    // Ensure pump_id is set in a hidden input if not already present
-                    let pumpIdInput = document.getElementById('edit_pump_id');
-                    if (!pumpIdInput) {
-                        pumpIdInput = document.createElement('input');
-                        pumpIdInput.type = 'hidden';
-                        pumpIdInput.id = 'edit_pump_id';
-                        pumpIdInput.name = 'pump_id';
-                        editShiftForm.appendChild(pumpIdInput);
-                    }
-                    pumpIdInput.value = pumpId;
-
-                    document.getElementById('edit_pump_user_id').value = pumpUserId;
-                    document.getElementById('edit_nozzle_id').value = nozzleId;
-                    document.getElementById('edit_shift_name').value = shiftName;
-                    document.getElementById('edit_start_date').value = startDate;
-                    document.getElementById('edit_end_date').value = endDate;
-                    document.getElementById('edit_is_active').value = isActive;
-
-                    // Format and set times
-                    if (startTime) {
-                        const [hours, minutes] = startTime.split(':');
-                        document.getElementById('edit_start_time').value = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:00`;
-                    }
-                    if (endTime) {
-                        const [hours, minutes] = endTime.split(':');
-                        document.getElementById('edit_end_time').value = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:00`;
-                    }
-                });
-            });
-
-            // Handle edit form submission
-            editShiftForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const formData = new FormData(this);
-                const shiftId = this.action.split('/').pop();
-
-                // Ensure pump_id is set
-                const pumpId = document.getElementById('edit_pump_id').value;
-                if (!pumpId) {
-                    alert('Pump ID is required');
-                    return;
-                }
-                formData.set('pump_id', pumpId);
-
-                // Format times
-                const startTime = document.getElementById('edit_start_time').value;
-                const endTime = document.getElementById('edit_end_time').value;
-
-                formData.set('start_time', startTime);
-                formData.set('end_time', endTime);
-
-                // Send AJAX request
-                fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'X-HTTP-Method-Override': 'PUT',
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(err => Promise.reject(err));
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Close modal
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('editShiftModal'));
-                    if (modal) {
-                        modal.hide();
-                    }
-
-                    // Reload page without showing success message
-                    window.location.reload();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    // Only show error message for actual errors, not status changes
-                    if (!error.message.includes('status')) {
-                        alert('An error occurred while updating the shift. Please try again.');
-                    } else {
-                        // For status changes, just reload the page
-                        window.location.reload();
-                    }
-                });
-            });
-        }
-    });
-</script>
+<!-- Duplicate Create Rate Modal removed - was causing JavaScript errors -->
 @endsection
 
 
