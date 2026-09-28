@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-sm-6">
-                <script>document.write(new Date().getFullYear())</script> © Iplex Infotech.
+                <script>document.write(new Date().getFullYear())</script> © FuelFlow
             </div>
             <div class="col-sm-6">
                 {{-- <div class="text-sm-end d-none d-sm-block">

@@ -8,7 +8,13 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid authentication-bg overflow-hidden" style="background: linear-gradient(to right, #4facfe, #00f2fe);">
+    <div class="container-fluid authentication-bg overflow-hidden"
+    style="
+        background-image: url('{{ asset('build/images/fuel-bg.png') }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    ">
         {{-- Removed the background overlay --}}
         <div class="row align-items-center justify-content-center min-vh-100">
             <div class="col-10 col-md-6 col-lg-4 col-xxl-3">
@@ -91,7 +97,7 @@
                             <p>©
                                 <script>
                                     document.write(new Date().getFullYear())
-                                </script> Iplex Infotech
+                                </script> FuelFlow
                             </p>
                         </div>
                     </div>

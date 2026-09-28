@@ -90,15 +90,139 @@
 @endsection
 
 @section('css')
-@endsection
 
+<style>
+
+    /* ==============================
+       CHECK SUMMARY BACKGROUND
+    ============================== */
+
+    .check-summary-page {
+     min-height: calc(100vh - 70px);
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
+
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-sizing: border-box;
+
+
+    }
+
+
+    /* ==============================
+       TITLE
+    ============================== */
+
+    .check-summary-page .page-title-box h4 {
+        font-size: 30px !important;
+        font-weight: 900 !important;
+        color: #073b4c !important;
+        margin-bottom: 6px !important;
+    }
+
+
+    /* Green part of title */
+
+    .check-summary-page .check-summary-green-text {
+        color: #20b486 !important;
+    }
+
+
+    /* Subtitle */
+
+    .check-summary-page .page-title-box p {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #477080 !important;
+        margin-bottom: 0 !important;
+    }
+
+
+    /* ==============================
+       CARDS
+    ============================== */
+
+    .check-summary-page .card {
+        background: rgba(255, 255, 255, 0.96) !important;
+        border: none !important;
+        border-radius: 18px !important;
+        box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
+    }
+
+
+    /* Card title */
+
+    .check-summary-page .card-title {
+        color: #073b4c !important;
+        font-weight: 700 !important;
+    }
+
+
+    /* ==============================
+       TABLE
+    ============================== */
+
+    .check-summary-page table th {
+        color: #073b4c !important;
+        font-weight: 600 !important;
+        background-color: #f8fdfb !important;
+    }
+
+    .check-summary-page table td {
+        color: #315466 !important;
+    }
+
+
+    /* ==============================
+       BUTTONS
+    ============================== */
+
+    .check-summary-page .btn-success {
+        background-color: #20b486 !important;
+        border-color: #20b486 !important;
+    }
+
+    .check-summary-page .btn-secondary {
+        border-radius: 8px;
+    }
+
+
+    /* ==============================
+       FORM LABELS
+    ============================== */
+
+    .check-summary-page .form-label {
+        color: #073b4c !important;
+        font-weight: 600 !important;
+    }
+
+</style>
+
+
+@endsection
 @section('content')
-    <div class="row">
+
+    <div class="check-summary-page">
+
+        <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Check Summary</h4>
-                    <p class="text-muted mb-0">Detail Report</p>
+                  <h4 class="fs-16 fw-semibold mb-1">
+    CHECK <span class="check-summary-green-text">SUMMARY :</span>
+</h4>
+
+<p class="text-muted mb-0">
+    Detail Report
+</p>
                 </div>
             </div>
         </div>

@@ -99,7 +99,11 @@ Route::get('/', function () {
             ->get();
     }
 
-    return view('index', compact('totalAmount', 'totalLiters', 'loans'));
+   return response()
+    ->view('index', compact('totalAmount', 'totalLiters', 'loans'))
+    ->header('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0')
+    ->header('Pragma', 'no-cache')
+    ->header('Expires', '0');
 })->name('dashboard');
 
 // User Management Routes

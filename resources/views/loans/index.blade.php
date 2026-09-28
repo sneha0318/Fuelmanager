@@ -673,12 +673,91 @@
 @endsection
 
 @section('content')
+
+<style>
+    /* ================================
+       LOAN MANAGEMENT PAGE
+       ================================ */
+
+    .loan-management-page {
+      min-height: calc(100vh - 70px);
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
+
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-sizing: border-box;
+
+
+    }
+
+
+    /* Attendance jaisa Main Title */
+    .loan-management-page .page-title-box h4 {
+        font-size: 30px !important;
+        font-weight: 900 !important;
+        color: #073b4c !important;
+        margin-bottom: 6px !important;
+    }
+
+
+    /* Green MANAGEMENT */
+    .loan-management-page .loan-green-text {
+        color: #20b486 !important;
+    }
+
+
+    /* Attendance jaisa Subtitle */
+    .loan-management-page .page-title-box p {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #477080 !important;
+        margin-bottom: 0 !important;
+    }
+
+
+    /* Cards */
+    .loan-management-page .card {
+        background: rgba(255, 255, 255, 0.96) !important;
+        border: none !important;
+        border-radius: 18px !important;
+        box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
+    }
+
+
+    /* Table Heading */
+    .loan-management-page table th {
+        color: #073b4c !important;
+        font-weight: 600 !important;
+    }
+
+
+    /* Table Data */
+    .loan-management-page table td {
+        color: #315466 !important;
+    }
+</style>
+
+<div class="loan-management-page">
+
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
             <div>
-                <h4 class="fs-16 fw-semibold mb-1">Loan Management</h4>
-                <p class="text-muted mb-0">Manage your loans here</p>
+              <h4 class="fs-16 fw-semibold mb-1">
+    LOAN <span class="loan-green-text">MANAGEMENT :</span>
+</h4>
+
+<p class="text-muted mb-0">
+    Manage your loans here
+</p>
             </div>
             <div class="mt-3 mt-sm-0">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createLoanModal">

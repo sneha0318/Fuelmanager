@@ -5,7 +5,41 @@
 @endsection
 
 @section('content')
-<div class="container-fluid" style="background: linear-gradient(to right, #4facfe, #00f2fe); min-height: 100vh;">
+<style>
+    .forgot-bg {
+        position: relative;
+        min-height: 100vh;
+        background-image: url('{{ asset('build/images/fuel-bg.png') }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+
+    .forgot-bg::before {
+        content: "";
+        position: absolute;
+        inset: -15px;
+        background-image: inherit;
+        background-size: cover;
+        background-position: center;
+        filter: blur(5px);
+        transform: scale(1.05);
+        z-index: 0;
+    }
+
+    .forgot-bg > .row {
+        position: relative;
+        z-index: 2;
+    }
+
+    .forgot-bg .card {
+        background: rgba(255, 255, 255, 0.96);
+        border: none;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+    }
+</style>
+<div class="container-fluid forgot-bg" style="min-height: 100vh;">
     <div class="row align-items-center justify-content-center min-vh-100">
         <div class="col-10 col-md-6 col-lg-4 col-xxl-3">
             <div class="card mb-0">
@@ -41,7 +75,7 @@
                         </form>
                     </div>
                     <div class="mt-5 text-center">
-                        <p>© <script>document.write(new Date().getFullYear())</script> Iplex Infotech</p>
+                        <p>© <script>document.write(new Date().getFullYear())</script> FuelFlow</p>
                     </div>
                 </div>
             </div>

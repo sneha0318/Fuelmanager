@@ -574,23 +574,321 @@
 @section('title')
     Pump Management
 @endsection
-
 @section('css')
+
+<style>
+
+/* =========================================
+   PUMP MANAGEMENT PAGE
+   ========================================= */
+
+.pump-management-page {
+
+      min-height: calc(100vh - 70px);
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
+
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-sizing: border-box;
+}
+
+/* Light overlay */
+/* .pump-management-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(235, 250, 246, 0.72);
+    z-index: 0;
+} */
+
+/* Everything above background */
+.pump-management-page > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =========================================
+   PAGE TITLE
+   ========================================= */
+/* Pump Management Heading */
+/* =========================================
+   PUMP MANAGEMENT HEADING
+   ========================================= */
+.pump-management-page .page-title-box h4 {
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    color: #073b4c !important;
+    margin-bottom: 6px !important;
+}
+
+.pump-management-page .pump-green-text {
+    color: #20b486 !important;
+}
+
+.pump-management-page .page-title-box p {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #477080 !important;
+    margin-bottom: 0 !important;
+}
+
+
+/* =========================================
+   ADD NEW PUMP BUTTON
+   ========================================= */
+
+.pump-management-page .add-pump-btn {
+    background: #20b486 !important;
+    border: none !important;
+    color: #ffffff !important;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    padding: 9px 18px;
+    border-radius: 8px;
+
+    box-shadow: 0 5px 15px rgba(32, 180, 134, 0.20);
+}
+
+.pump-management-page .add-pump-btn:hover {
+    background: #159c73 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================
+   MAIN TABLE CARD
+   ========================================= */
+
+.pump-management-page .pump-table-card {
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid rgba(32, 180, 134, 0.12);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 30px rgba(20, 80, 70, 0.08);
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   TABLE
+   ========================================= */
+
+.pump-management-page table {
+    margin-bottom: 0;
+}
+
+.pump-management-page thead {
+    background: #eaf8f4;
+}
+
+.pump-management-page thead th {
+    color: #123f45 !important;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    padding: 15px 14px;
+
+    border-bottom: 1px solid #cfe9e1;
+}
+
+.pump-management-page tbody td {
+    color: #294f58 !important;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    padding: 15px 14px;
+
+    border-bottom: 1px solid #e8f0ee;
+    vertical-align: middle;
+}
+
+.pump-management-page tbody tr:hover {
+    background: #f5fbf9;
+}
+
+
+/* =========================================
+   STATUS
+   ========================================= */
+
+.pump-management-page .pump-status {
+    background: #dff7ef !important;
+    color: #159c73 !important;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+}
+
+
+/* =========================================
+   ACTION BUTTONS
+   ========================================= */
+
+.pump-management-page .edit-pump-btn {
+    width: 34px;
+    height: 34px;
+
+    padding: 0;
+
+    border: none !important;
+    border-radius: 7px;
+
+    background: #ffe08a !important;
+    color: #735900 !important;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pump-management-page .edit-pump-btn:hover {
+    background: #ffcf4a !important;
+}
+
+
+.pump-management-page .delete-pump-btn {
+    width: 34px;
+    height: 34px;
+
+    padding: 0;
+
+    border: none !important;
+    border-radius: 7px;
+
+    background: #ff6b6b !important;
+    color: #ffffff !important;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 5px;
+}
+
+.pump-management-page .delete-pump-btn:hover {
+    background: #f04444 !important;
+}
+
+
+/* =========================================
+   EMPTY TABLE
+   ========================================= */
+
+.pump-management-page .no-pumps {
+    color: #607d84 !important;
+    font-size: 14px;
+    padding: 30px !important;
+}
+
+
+/* =========================================
+   MODALS
+   ========================================= */
+
+.pump-management-page .modal-content {
+    border: none;
+    border-radius: 14px;
+
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.pump-management-page .modal-header {
+    border-bottom: 1px solid #e5efec;
+}
+
+.pump-management-page .modal-title {
+    color: #123f45 !important;
+    font-weight: 700;
+}
+
+.pump-management-page .form-label {
+    color: #294f58 !important;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pump-management-page .form-control,
+.pump-management-page .form-select {
+    border: 1px solid #d7e8e3;
+    border-radius: 8px;
+}
+
+.pump-management-page .form-control:focus,
+.pump-management-page .form-select:focus {
+    border-color: #20b486;
+    box-shadow: 0 0 0 0.15rem rgba(32,180,134,0.15);
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .pump-management-page {
+        padding: 15px;
+    }
+
+    .pump-management-page .page-title-box {
+        display: block !important;
+    }
+
+    .pump-management-page .add-pump-btn {
+        margin-top: 12px;
+    }
+
+}
+
+</style>
+
 @endsection
 
 @section('content')
+
+<div class="pump-management-page fuel-pump-bg">
+
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Pump Management</h4>
+                    <h4 class="fs-16 fw-semibold mb-1">
+    PUMP <span class="pump-green-text">MANAGEMENT :</span>
+</h4>
                     <p class="text-muted mb-0">Manage your petrol pumps here</p>
                 </div>
                 <div class="mt-3 mt-sm-0">
                     <!-- Button to trigger Add Pump modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPumpModal">
-                        <i class="fas fa-plus me-1"></i> Add New Pump
-                    </button>
+                   <button type="button" 
+        class="btn add-pump-btn" 
+        data-bs-toggle="modal" 
+        data-bs-target="#addPumpModal">
+
+    <i class="fas fa-plus me-1"></i>
+    Add New Pump
+
+</button>
                 </div>
             </div>
         </div>
@@ -621,7 +919,7 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="card">
+           <div class="card pump-table-card">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-centered table-nowrap mb-0">
@@ -644,9 +942,9 @@
                                         <td>{{ $pump->location }}</td>
                                         <td>{{ $pump->total_nozzles }}</td>
                                         <td>
-                                            <span class="badge bg-{{ $pump->status === 'active' ? 'success' : 'danger' }}">
-                                                {{ ucfirst($pump->status) }}
-                                            </span>
+<span class="badge pump-status">
+    {{ ucfirst($pump->status) }}
+</span>
                                         </td>
                                         <td>{{ $pump->created_at->format('d M Y') }}</td>
                                         <td>
@@ -940,6 +1238,7 @@
             });
         });
     </script>
+    </div>
 @endsection
 
 <!-- Delete Confirmation Modal -->

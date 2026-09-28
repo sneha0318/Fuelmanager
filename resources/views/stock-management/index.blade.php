@@ -2,15 +2,153 @@
 @section('css')
     <!-- DataTables -->
     <link href="{{ URL::asset('/assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <style>
+        .stock-management-page {
+     min-height: calc(100vh - 70px);
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
+
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-sizing: border-box;
+
+
+        }
+
+        /* Page Title */
+        .stock-management-page .page-title-box h4 {
+            font-size: 30px !important;
+            font-weight: 900 !important;
+            color: #073b4c !important;
+            margin-bottom: 6px !important;
+        }
+
+        .stock-management-page .stock-green-text {
+            color: #20b486 !important;
+        }
+
+        .stock-management-page .page-title-box p {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            color: #477080 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Cards */
+        .stock-management-page .card {
+            background: rgba(255, 255, 255, 0.96) !important;
+            border: none !important;
+            border-radius: 18px !important;
+            box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
+        }
+
+        /* Table */
+        .stock-management-page table th {
+            background-color: #f8fdfb !important;
+            color: #073b4c !important;
+            font-weight: 600 !important;
+        }
+
+        .stock-management-page table td {
+            color: #315466 !important;
+            vertical-align: middle;
+        }
+
+        /* Add New Stock */
+        .stock-management-page .btn-primary {
+            background-color: #20b486 !important;
+            border-color: #20b486 !important;
+            color: #ffffff !important;
+            border-radius: 8px;
+        }
+
+        /* Add to Stock */
+        .stock-management-page .btn-success {
+            background-color: #20b486 !important;
+            border-color: #20b486 !important;
+            color: #ffffff !important;
+        }
+
+        /* Edit */
+        .stock-management-page .btn-warning {
+            background-color: #ffd66b !important;
+            border-color: #ffd66b !important;
+            color: #073b4c !important;
+        }
+
+        /* View */
+        .stock-management-page .btn-info {
+            background-color: #6ec6e8 !important;
+            border-color: #6ec6e8 !important;
+            color: #ffffff !important;
+        }
+
+        /* Form Labels */
+        .stock-management-page .form-label {
+            color: #073b4c !important;
+            font-weight: 600 !important;
+        }
+
+        /* Alerts */
+        .stock-management-page .alert {
+            border-radius: 10px;
+        }
+
+        /* Modals */
+        .stock-management-page .modal-content {
+            border: none !important;
+            border-radius: 18px !important;
+            box-shadow: 0 10px 35px rgba(7, 59, 76, 0.15);
+        }
+
+        .stock-management-page .modal-header {
+            border-bottom: 1px solid #e8eeee;
+        }
+
+        .stock-management-page .modal-title {
+            color: #073b4c !important;
+            font-weight: 700;
+        }
+
+        .stock-management-page .modal-footer {
+            border-top: 1px solid #e8eeee;
+        }
+
+        /* DataTable text */
+        .stock-management-page .dataTables_wrapper {
+            color: #315466;
+        }
+
+        .stock-management-page .dataTables_wrapper .dataTables_filter input,
+        .stock-management-page .dataTables_wrapper .dataTables_length select {
+            border: 1px solid #d9e5e5;
+            border-radius: 8px;
+        }
+    </style>
 @endsection
 
 @section('content')
-    <div class="row">
+
+    <div class="stock-management-page">
+
+        <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Stock Management</h4>
-                    <p class="text-muted mb-0">Manage your stock here</p>
+                 <h4 class="fs-16 fw-semibold mb-1">
+    STOCK <span class="stock-green-text">MANAGEMENT :</span>
+</h4>
+<p class="text-muted mb-0">
+    Manage your stock here
+</p>
                 </div>
                 <div class="mt-3 mt-sm-0">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStockModal">

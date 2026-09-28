@@ -1176,73 +1176,128 @@
 @endsection
 
 @section('css')
-    <style>
-        .table th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-        }
+<style>
 
-        .alert {
-            margin-bottom: 1rem;
-            border-radius: 0.375rem;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-        }
+    /* ==============================
+       PARTY LIST MANAGEMENT BACKGROUND
+    ============================== */
 
-        .btn-sm .fas.fa-spinner {
-            animation: spin 1s linear infinite;
-        }
+    .party-list-management-page {
+           min-height: calc(100vh - 70px);
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
 
-        .fade-out {
-            transition: opacity 0.3s ease-out;
-            opacity: 0;
-        }
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-        .clickable-payment-type {
-            transition: all 0.2s ease-in-out;
-        }
+    box-sizing: border-box;
 
-        .clickable-payment-type:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-        }
 
-        .btn-delete-hover:hover {
-            background-color: #dc3545 !important;
-            border-color: #dc3545 !important;
-            transform: translateY(-1px);
-            box-shadow: 0 0.25rem 0.5rem rgba(220, 53, 69, 0.3);
-        }
+    }
 
-        .expense-amount {
-            font-weight: 600;
-            color: #6c757d;
-        }
 
-        .expense-name {
-            background: none !important;
-            border: 1px solid #6c757d !important;
-            color: #6c757d !important;
-        }
+    /* ==============================
+       TITLE
+    ============================== */
 
-        .expense-name:hover {
-            background-color: #6c757d !important;
-            color: white !important;
-        }
-    </style>
+    .party-list-management-page .page-title-box h4 {
+        font-size: 30px !important;
+        font-weight: 900 !important;
+        color: #073b4c !important;
+        margin-bottom: 6px !important;
+    }
+
+    .party-list-management-page .party-list-green-text {
+        color: #20b486 !important;
+    }
+
+    .party-list-management-page .page-title-box p {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #477080 !important;
+        margin-bottom: 0 !important;
+    }
+
+
+    /* ==============================
+       CARD
+    ============================== */
+
+    .party-list-management-page .card {
+        background: rgba(255, 255, 255, 0.96) !important;
+        border: none !important;
+        border-radius: 18px !important;
+        box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
+    }
+
+
+    /* ==============================
+       TABLE
+    ============================== */
+
+    .party-list-management-page table th {
+        background-color: #f8fdfb !important;
+        color: #073b4c !important;
+        font-weight: 600 !important;
+    }
+
+    .party-list-management-page table td {
+        color: #315466 !important;
+    }
+
+
+    /* ==============================
+       ADD BUTTON
+    ============================== */
+
+    .party-list-management-page .btn-primary {
+        background-color: #20b486 !important;
+        border-color: #20b486 !important;
+    }
+
+
+    /* ==============================
+       FORM LABELS
+    ============================== */
+
+    .party-list-management-page .form-label {
+        color: #073b4c !important;
+        font-weight: 600 !important;
+    }
+
+
+    /* ==============================
+       MODALS
+    ============================== */
+
+    .party-list-management-page .modal-content {
+        border: none;
+        border-radius: 18px;
+    }
+
+</style>
 @endsection
-
 @section('content')
-    <div class="row">
+
+    <div class="party-list-management-page">
+
+        <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Party List Management</h4>
-                    <p class="text-muted mb-0">Manage your party lists here</p>
+                  <h4 class="fs-16 fw-semibold mb-1">
+    PARTY LIST <span class="party-list-green-text">MANAGEMENT :</span>
+</h4>
+
+<p class="text-muted mb-0">
+    Manage your party lists here
+</p>
                 </div>
                 <div class="mt-3 mt-sm-0">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPartyListModal">

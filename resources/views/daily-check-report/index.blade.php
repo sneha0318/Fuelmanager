@@ -109,12 +109,131 @@
 @endsection
 
 @section('content')
+
+<style>
+
+    /* ==============================
+       DAILY CHECK REPORT BACKGROUND
+    ============================== */
+
+    .daily-check-report-page {
+     min-height: calc(100vh - 70px);
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
+
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-sizing: border-box;
+
+
+    }
+
+
+    /* ==============================
+       TITLE - ATTENDANCE STYLE
+    ============================== */
+
+    .daily-check-report-page .page-title-box h4 {
+        font-size: 30px !important;
+        font-weight: 900 !important;
+        color: #073b4c !important;
+        margin-bottom: 6px !important;
+    }
+
+
+    /* Green part of title */
+
+    .daily-check-report-page .daily-check-green-text {
+        color: #20b486 !important;
+    }
+
+
+    /* Subtitle */
+
+    .daily-check-report-page .page-title-box p {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #477080 !important;
+        margin-bottom: 0 !important;
+    }
+
+
+    /* ==============================
+       CARDS
+    ============================== */
+
+    .daily-check-report-page .card {
+        background: rgba(255, 255, 255, 0.96) !important;
+        border: none !important;
+        border-radius: 18px !important;
+        box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
+    }
+
+
+    /* Card headings */
+
+    .daily-check-report-page .card-title {
+        color: #073b4c !important;
+        font-weight: 700 !important;
+    }
+
+
+    /* ==============================
+       FORM LABELS
+    ============================== */
+
+    .daily-check-report-page .form-label {
+        color: #073b4c !important;
+        font-weight: 600 !important;
+    }
+
+
+    /* ==============================
+       TABLE
+    ============================== */
+
+    .daily-check-report-page table th {
+        color: #073b4c !important;
+        font-weight: 600 !important;
+        background-color: #f8fdfb !important;
+    }
+
+    .daily-check-report-page table td {
+        color: #315466 !important;
+    }
+
+
+    /* ==============================
+       FIND BUTTON
+    ============================== */
+
+    .daily-check-report-page .btn-success {
+        background-color: #20b486 !important;
+        border-color: #20b486 !important;
+    }
+
+</style>
+
+<div class="daily-check-report-page">
+
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Daily Check Report</h4>
-                    <p class="text-muted mb-0">Detail Report</p>
+                 <h4 class="fs-16 fw-semibold mb-1">
+    DAILY CHECK <span class="daily-check-green-text">REPORT :</span>
+</h4>
+
+<p class="text-muted mb-0">
+    Detail Report
+</p>
                 </div>
             </div>
         </div>

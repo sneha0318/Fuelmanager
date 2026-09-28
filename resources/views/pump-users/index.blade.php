@@ -322,15 +322,196 @@
 @endsection
 
 @section('css')
+@section('css')
+
+<style>
+
+/* =========================================
+   USER MANAGEMENT FULL BACKGROUND
+========================================= */
+
+.user-management-page {
+    min-height: calc(100vh - 70px);
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
+
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   USER MANAGEMENT HEADING
+========================================= */
+/* USER MANAGEMENT HEADING */
+.user-management-page .page-title-box h4 {
+
+    font-size: 30px !important;
+
+    font-weight: 900 !important;
+
+    color: #073b4c !important;
+
+    margin-bottom: 6px !important;
+
+}
+
+.user-management-page .user-green-text {
+
+    color: #20b486 !important;
+
+}
+
+.user-management-page .page-title-box p {
+
+    font-size: 16px !important;
+
+    font-weight: 600 !important;
+
+    color: #477080 !important;
+
+    margin-bottom: 0 !important;
+
+}
+
+/* =========================================
+   SUBTITLE
+========================================= */
+
+.user-management-page p.text-muted,
+.user-management-page p {
+    color: #477080 !important;
+}
+
+
+/* =========================================
+   MAIN CARD
+========================================= */
+
+.user-management-page .card {
+    background: rgba(255, 255, 255, 0.96);
+
+    border: none;
+
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
+}
+
+
+/* =========================================
+   TABLE HEADER
+========================================= */
+
+.user-management-page table th {
+    color: #073b4c !important;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   TABLE DATA
+========================================= */
+
+.user-management-page table td {
+    color: #315466 !important;
+}
+
+
+/* =========================================
+   ADD USER BUTTON
+========================================= */
+
+.user-management-page .btn-primary {
+    background: #20b486 !important;
+
+    border-color: #20b486 !important;
+
+    color: #ffffff !important;
+
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   ACTIVE STATUS
+========================================= */
+
+.user-management-page .badge.bg-success {
+    background-color: #3cc5a7 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================
+   INACTIVE STATUS
+========================================= */
+
+.user-management-page .badge.bg-danger {
+    background-color: #ff6268 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================
+   EDIT BUTTON
+========================================= */
+
+.user-management-page .btn-warning {
+    background: #ffd66b !important;
+
+    border-color: #ffd66b !important;
+}
+
+
+/* =========================================
+   DELETE BUTTON
+========================================= */
+
+.user-management-page .btn-danger {
+    background: #ff6268 !important;
+
+    border-color: #ff6268 !important;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.user-management-page .modal-content {
+    border: none;
+
+    border-radius: 18px;
+}
+
+</style>
+
+
 @endsection
 
 @section('content')
+<div class="user-management-page">
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">User Management</h4>
-                    <p class="text-muted mb-0">Manage your pump users here</p>
+                    <h4 class="fs-16 fw-semibold mb-1">
+    USER <span class="user-green-text">MANAGEMENT :</span>
+</h4>
+
+<p class="text-muted mb-0">
+    Manage your pump users here
+</p>
+
                 </div>
                 <div class="mt-3 mt-sm-0">
                     @if(auth()->user()->user_type === 'super_admin' || auth()->user()->user_type === 'admin')
@@ -727,7 +908,7 @@
             </div>
         </div>
     </div>
+    </div>
 @endsection
 
-@section('scripts')
-@endsection
+

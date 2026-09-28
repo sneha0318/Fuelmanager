@@ -281,106 +281,140 @@
 
 @section('content')
 <style>
-    #pumpsAccordion .accordion-button:not(.collapsed) {
-        background-color: #f0f7ff;
-        color: #0d6efd;
-    }
-    
-    #pumpsAccordion .accordion-button:focus {
-        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-    }
-    
-    #pumpsAccordion .table {
-        margin-bottom: 0;
-    }
-    
-    #pumpsAccordion .accordion-item {
-        margin-bottom: 10px;
-        border-radius: 0.25rem;
-        overflow: hidden;
-    }
-    
-    #allPumpsContainer {
-        margin-top: 15px;
-    }
-    
-    /* Animation for highlighting updates */
-    @keyframes highlightFade {
-        0%   { background-color: rgba(25, 135, 84, 0.3); }
-        100% { background-color: transparent; }
-    }
-    
-    .highlight-update {
-        animation: highlightFade 1.5s ease-out;
-    }
-    
-    /* Also apply highlighting to table rows */
-    tr.highlight-update td {
-        animation: highlightFade 1.5s ease-out;
-    }
 
-    /* Date picker container */
-    .date-picker-container {
-        position: relative;
-        max-width: 300px;
-    }
-    
-    .date-picker-input {
-        border: 1px solid #ced4da;
-        border-radius: 0.25rem;
-        padding: 0.375rem 0.75rem;
-        width: 100%;
-        font-size: 14px;
-        cursor: pointer;
-        background-color: #fff;
-    }
+/* BACKGROUND */
+.shift-rate-management-page {
+    min-height: calc(100vh - 70px);
 
-    /* Mobile-specific styles for action buttons */
-    @media (max-width: 768px) {
-        /* Action buttons spacing for mobile */
-        .table tbody td .d-flex {
-            gap: 8px !important;
-            flex-wrap: wrap;
-        }
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
 
-        .table tbody td .btn {
-            margin: 2px !important;
-            flex-shrink: 0;
-        }
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-        .table tbody td .btn-sm {
-            font-size: 12px !important;
-        }
+    box-sizing: border-box;
+}
+/* ================================
+   PAGE TITLE - RATE & SHIFT
+   ================================ */
 
-        /* Ensure action buttons container has proper spacing */
-        .table tbody td:last-child .d-flex {
-            justify-content: flex-end !important;
-            align-items: center;
-            gap: 10px !important;
-        }
+/* =========================================
+   RATE & SHIFT TITLE
+   ========================================= */
 
-        /* Table responsive adjustments for mobile */
-        .table-responsive {
-            overflow-x: auto;
-        }
+.shift-rate-management-page .page-title-box h4 {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    color: #073b4c !important;
+    margin-bottom: 6px !important;
+}
 
-        /* Additional mobile text adjustments */
-        .table tbody td .fw-bold,
-        .table tbody td .text-muted,
-        .table tbody td .badge,
-        .table tbody td a,
-        .table tbody td button {
-            font-size: 14px !important;
-        }
-    }
+/* RATE MANAGEMENT green part */
+.shift-rate-management-page .rate-green-text {
+    color: #20b486 !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+}
+
+/* SHIFT MANAGEMENT green part */
+.shift-rate-management-page .shift-green-text {
+    color: #20b486 !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+}
+
+/* Subtitle */
+.shift-rate-management-page .page-title-box p {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #477080 !important;
+    margin-bottom: 0 !important;
+}
+
+.shift-rate-management-page .table th {
+    color: #073b4c !important;
+    font-weight: 600;
+}
+
+.shift-rate-management-page .table td {
+    color: #315466 !important;
+}
+
+.shift-rate-management-page .card-header.bg-primary {
+    background: #20b486 !important;
+}
+
+.shift-rate-management-page .btn-primary {
+    background: #20b486 !important;
+    border-color: #20b486 !important;
+}
+
+.shift-rate-management-page .btn-success {
+    background: #20b486 !important;
+    border-color: #20b486 !important;
+}
+
+.shift-rate-management-page .btn-warning {
+    background: #ffd66b !important;
+    border-color: #ffd66b !important;
+}
+
+.shift-rate-management-page .btn-danger {
+    background: #ff6268 !important;
+    border-color: #ff6268 !important;
+}
+
+
+/* EXISTING CSS — ISKO RAKHNA HAI */
+
+#pumpsAccordion .accordion-button:not(.collapsed) {
+    background-color: #f0f7ff;
+    color: #0d6efd;
+}
+
+#pumpsAccordion .accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+#pumpsAccordion .table {
+    margin-bottom: 0;
+}
+
+#pumpsAccordion .accordion-item {
+    margin-bottom: 10px;
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
+#allPumpsContainer {
+    margin-top: 15px;
+}
+
+/* baaki tumhara existing CSS yahan rahega */
+
 </style>
-<div class="container-fluid">
-    <div class="row">
+
+<div class="shift-rate-management-page">
+
+    <div class="container-fluid">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Rate Management</h4>
-                    <p class="text-muted mb-0">Manage your fuel rates here</p>
+<h4 class="fs-16 fw-semibold mb-1">
+    RATE <span class="rate-green-text">MANAGEMENT :</span>
+</h4>
+
+<p class="text-muted mb-0">
+    Manage your fuel rates here
+</p>
+
                 </div>
                 <div class="mt-3 mt-sm-0">
                     {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createRateModal">
@@ -534,8 +568,13 @@
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Shift Management</h4>
-                    <p class="text-muted mb-0">Manage your shifts here</p>
+                  <h4 class="fs-16 fw-semibold mb-1">
+    SHIFT <span class="shift-green-text">MANAGEMENT :</span>
+</h4>
+
+<p class="text-muted mb-0">
+    Manage your shifts here
+</p>
                 </div>
                 <div class="mt-3 mt-sm-0">
                     {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createShiftModal">
@@ -734,6 +773,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Create Rate Modal -->

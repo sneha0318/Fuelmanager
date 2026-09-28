@@ -4,7 +4,63 @@
     <!-- Bootstrap datepicker -->
     <link href="{{ URL::asset('build/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     
+    
 <style>
+    /* Sales Heading */
+.sales-management-page .page-title-box h4 {
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    color: #073b4c !important;
+    margin-bottom: 6px !important;
+}
+
+/* Green Management text */
+.sales-management-page .sales-green-text {
+    color: #20b486 !important;
+}
+
+/* Sales Subtitle */
+.sales-management-page .page-title-box p {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #477080 !important;
+    margin-bottom: 0 !important;
+}
+    .sales-green-text {
+    color: #20b486 !important;
+}
+
+.sales-management-page {
+    min-height: calc(100vh - 70px);
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
+
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-sizing: border-box;
+}
+
+.sales-management-page .card {
+    background: rgba(255, 255, 255, 0.96) !important;
+    border: none;
+    border-radius: 18px;
+}
+
+.sales-management-page table th {
+    color: #073b4c !important;
+    font-weight: 600 !important;
+}
+
+.sales-management-page table td {
+    color: #315466 !important;
+}
     .stock-info {
         font-size: 0.875rem;
         margin-top: 0.5rem;
@@ -181,6 +237,7 @@
             font-size: 12px !important;
         }
     }
+    
 </style>
 @endsection
 
@@ -1020,15 +1077,21 @@
         }
     </style>
 @endsection
-
 @section('content')
+
+<div class="sales-management-page">
+
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Sales Management</h4>
-                    <p class="text-muted mb-0">Manage your sales records here</p>
-                </div>
+<h4 class="fs-16 fw-semibold mb-1">
+    SALES <span class="sales-green-text">MANAGEMENT :</span>
+</h4>
+
+<p class="text-muted mb-0">
+    Manage your sales here
+</p>      </div>
                 <div class="mt-3 mt-sm-0">
                     <button type="button" class="btn btn-primary" id="addSaleButton">
                         <i class="fas fa-plus me-1"></i> Add New Sale

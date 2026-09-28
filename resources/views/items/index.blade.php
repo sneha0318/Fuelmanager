@@ -327,15 +327,234 @@
 @endsection
 
 @section('css')
+
+<style>
+
+/* =========================================
+   ITEMS MANAGEMENT BACKGROUND
+========================================= */
+
+.items-management-page {
+    min-height: calc(100vh - 70px);
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
+
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   ITEMS MANAGEMENT HEADING
+========================================= */
+
+.items-management-page .page-title-box h4 {
+
+    font-size: 30px !important;
+
+    font-weight: 900 !important;
+
+    color: #073b4c !important;
+
+    margin-bottom: 6px !important;
+
+}
+
+
+/* MANAGEMENT GREEN */
+
+.items-management-page .item-green-text {
+
+    color: #20b486 !important;
+
+}
+
+
+/* =========================================
+   SUBTITLE
+========================================= */
+
+.items-management-page .page-title-box p {
+
+    font-size: 16px !important;
+
+    font-weight: 600 !important;
+
+    color: #477080 !important;
+
+    margin-bottom: 0 !important;
+
+}
+
+
+/* =========================================
+   MAIN CARD
+========================================= */
+
+.items-management-page .card {
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: none;
+
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
+
+}
+
+
+/* =========================================
+   TABLE HEADER
+========================================= */
+
+.items-management-page table th {
+
+    color: #073b4c !important;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================
+   TABLE DATA
+========================================= */
+
+.items-management-page table td {
+
+    color: #315466 !important;
+
+}
+
+
+/* =========================================
+   ADD ITEM BUTTON
+========================================= */
+
+.items-management-page .btn-primary {
+
+    background: #20b486 !important;
+
+    border-color: #20b486 !important;
+
+    color: #ffffff !important;
+
+    border-radius: 10px;
+
+}
+
+
+/* =========================================
+   FORM SELECT
+========================================= */
+
+.items-management-page .form-control,
+.items-management-page .form-select {
+
+    border: 1px solid #d7e8e3;
+
+    border-radius: 8px;
+
+}
+
+
+.items-management-page .form-control:focus,
+.items-management-page .form-select:focus {
+
+    border-color: #20b486;
+
+    box-shadow: 0 0 0 0.15rem rgba(32,180,134,0.15);
+
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.items-management-page .badge.bg-success {
+
+    background-color: #3cc5a7 !important;
+
+    color: #ffffff !important;
+
+}
+
+
+.items-management-page .badge.bg-danger {
+
+    background-color: #ff6268 !important;
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================================
+   EDIT BUTTON
+========================================= */
+
+.items-management-page .btn-warning {
+
+    background: #ffd66b !important;
+
+    border-color: #ffd66b !important;
+
+}
+
+
+/* =========================================
+   DELETE BUTTON
+========================================= */
+
+.items-management-page .btn-danger {
+
+    background: #ff6268 !important;
+
+    border-color: #ff6268 !important;
+
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.items-management-page .modal-content {
+
+    border: none;
+
+    border-radius: 18px;
+
+}
+
+</style>
+
+
 @endsection
 
 @section('content')
+<div class="items-management-page">
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Items Management</h4>
-                    <p class="text-muted mb-0">Manage your items here</p>
+                 <h4 class="fs-16 fw-semibold mb-1">
+    ITEMS <span class="item-green-text">MANAGEMENT :</span>
+</h4>
+
+<p class="text-muted mb-0">
+    Manage your items here
+</p>
                 </div>
                 <div class="mt-3 mt-sm-0">
                     <!-- Button to trigger Add Item modal -->

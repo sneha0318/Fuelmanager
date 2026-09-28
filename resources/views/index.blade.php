@@ -6,7 +6,9 @@
 @endsection
 
 @section('css')
+
 <style>
+    
     .dashboard-card {
         border: none;
         border-radius: 15px;
@@ -110,10 +112,468 @@
             max-width: 25% !important;
         }
     }
+
+
+    /* ================= DASHBOARD BACKGROUND ================= */
+
+/* ================= DASHBOARD FULL BACKGROUND ================= */
+
+/* ================================
+   DASHBOARD BACKGROUND
+   SAME AS PUMP MANAGEMENT
+================================ */
+
+.dashboard-page-bg {
+     min-height: calc(100vh - 70px);
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+margin-top: -30px;
+    padding: 25px 25px 50px 25px;
+
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-sizing: border-box;
+}
+
+
+/* Keep dashboard content above background */
+/* .dashboard-page-bg > * {
+    position: relative;
+    z-index: 1;
+} */
+/* ================================
+   DASHBOARD FONT
+================================ */
+
+.dashboard-page-bg h4,
+.dashboard-page-bg h5,
+.dashboard-page-bg h6 {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    color: #073b4c !important;
+}
+
+.dashboard-page-bg p,
+.dashboard-page-bg span,
+.dashboard-page-bg td,
+.dashboard-page-bg th,
+.dashboard-page-bg .btn,
+.dashboard-page-bg select {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+}
+/* =========================================
+   FUELMANAGER DASHBOARD FONT STYLE
+   ========================================= */
+
+.dashboard-page-bg {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #123f45;
+}
+
+/* WELCOME BACK */
+.dashboard-page-bg h4 {
+    color: #123f45 !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px;
+}
+
+/* SUPER ADMIN */
+.dashboard-page-bg h4 span {
+    color: #12a982 !important;
+    font-weight: 700 !important;
+}
+
+/* Dashboard subtitle - same as reference */
+.dashboard-page-bg .page-title-box p.text-muted {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    color: #607b80 !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+}
+
+
+/* =========================================
+   CARD HEADINGS
+   ========================================= */
+
+.dashboard-page-bg .card-title {
+    color: #123f45 !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1px;
+}
+
+/* Sales by Product Category */
+.dashboard-page-bg h5 {
+    color: #123f45 !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================
+   STAT CARD LABELS
+   ========================================= */
+
+.dashboard-page-bg .stat-card p {
+    color: #486970 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+/* Today's Sale / Litre / KG values */
+.dashboard-page-bg .stat-card h5 {
+    color: #083f45 !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================
+   PAYMENT / LOAN CARDS
+   ========================================= */
+
+.dashboard-page-bg .dashboard-card h5 {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+
+.dashboard-page-bg .dashboard-card p {
+    color: #547278 !important;
+    font-size: 13px !important;
+}
+
+/* Amount ₹0.00 */
+.dashboard-page-bg .dashboard-card .amount,
+.dashboard-page-bg .dashboard-card strong {
+    color: #083f45 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================
+   SALES ANALYTICS
+   ========================================= */
+
+.dashboard-page-bg .sales-analytics-title {
+    color: #083f45 !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+}
+
+.dashboard-page-bg .total-title {
+    color: #08796c !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+}
+
+.dashboard-page-bg .total-value {
+    color: #083f45 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================
+   DROPDOWN
+   ========================================= */
+
+.dashboard-page-bg select,
+.dashboard-page-bg .form-select {
+    color: #315c63 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+
+/* =========================================
+   CHART TEXT
+   ========================================= */
+
+.dashboard-page-bg .text-muted {
+    color: #607b80 !important;
+    font-size: 12px !important;
+}
+
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.dashboard-page-bg .btn {
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================
+   GENERAL TEXT
+   ========================================= */
+
+.dashboard-page-bg p,
+.dashboard-page-bg span {
+    letter-spacing: 0.1px;
+}
+
+
+/* ================================
+   DASHBOARD FONT STYLE
+   ================================ */
+
+.dashboard-page-bg h1,
+.dashboard-page-bg h2,
+.dashboard-page-bg h3,
+.dashboard-page-bg h4,
+.dashboard-page-bg h5,
+.dashboard-page-bg h6,
+.dashboard-page-bg p,
+.dashboard-page-bg a,
+.dashboard-page-bg button,
+.dashboard-page-bg select,
+.dashboard-page-bg option {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+}
+
+
+
+/* ================================
+   CARD HEADINGS
+   ================================ */
+
+.dashboard-page-bg .card-title,
+.dashboard-page-bg .card-header h4,
+.dashboard-page-bg .card-header h5 {
+    color: #123f45 !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+}
+
+
+/* ================================
+   NORMAL TEXT
+   ================================ */
+
+.dashboard-page-bg .stat-card p {
+    color: #486970 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+
+/* ================================
+   AMOUNTS
+   ================================ */
+
+.dashboard-page-bg .stat-card h5,
+.dashboard-page-bg .stat-card h5 span {
+    color: #083f45 !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+}
+
+
+/* ================================
+   PAYMENT / LOAN TITLES
+   ================================ */
+
+.dashboard-page-bg .dashboard-card h5 {
+    color: #123f45 !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+.dashboard-page-bg .dashboard-card p {
+    color: #486970 !important;
+    font-size: 13px !important;
+}
+
+
+/* ================================
+   COLORED TEXT
+   ================================ */
+
+.dashboard-page-bg .text-danger {
+    color: #ff4d55 !important;
+}
+
+.dashboard-page-bg .text-success {
+    color: #12b886 !important;
+}
+
+.dashboard-page-bg .text-info {
+    color: #3478d5 !important;
+}
+
+.dashboard-page-bg .text-primary {
+    color: #0d79c7 !important;
+}
+
+
+/* ================================
+   ICON COLOR
+   IMPORTANT:
+   DO NOT CHANGE FONT-FAMILY OF ICONS
+   ================================ */
+
+.dashboard-page-bg .stat-icon i {
+    font-size: 22px !important;
+}
+
+
+/* Green */
+
+.dashboard-page-bg .stat-icon.text-success i,
+.dashboard-page-bg .text-success i {
+    color: #12b886 !important;
+}
+
+
+/* Blue */
+
+.dashboard-page-bg .stat-icon.text-primary i,
+.dashboard-page-bg .text-primary i {
+    color: #3478d5 !important;
+}
+
+
+/* Red */
+
+.dashboard-page-bg .stat-icon.text-danger i,
+.dashboard-page-bg .text-danger i {
+    color: #ff535b !important;
+}
+
+
+/* Info */
+
+.dashboard-page-bg .stat-icon.text-info i,
+.dashboard-page-bg .text-info i {
+    color: #3478d5 !important;
+}
+
+
+/* ================================
+   ICON BOXES
+   ================================ */
+
+.dashboard-page-bg .stat-icon {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 12px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+
+/* ================================
+   CHART HEADINGS
+   ================================ */
+
+.dashboard-page-bg .dashboard-card .card-title {
+    color: #123f45 !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+}
+
+
+/* ================================
+   SALES ANALYTICS
+   ================================ */
+
+.dashboard-page-bg .sales-analytics-title {
+    color: #123f45 !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+}
+
+
+/* ================================
+   TOTAL
+   ================================ */
+
+.dashboard-page-bg .total-title {
+    color: #08796c !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+}
+
+.dashboard-page-bg .total-value {
+    color: #083f45 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}
+
+
+/* ================================
+   MUTED TEXT
+   ================================ */
+
+.dashboard-page-bg .text-muted {
+    color: #607b80 !important;
+}
+
+
+/* ================================
+   BUTTON FONT
+   ================================ */
+
+.dashboard-page-bg .btn {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+
+/* ================================
+   BACKGROUND LIGHT
+   ================================ */
+
+/* .dashboard-page-bg::before {
+    background: rgba(0, 80, 60, 0.03) !important;
+} */
+/* 
+
+
+/* DASHBOARD TITLE - SAME AS PUMP MANAGEMENT */
+
+.dashboard-page-bg .page-title-box h4 {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    color: #073b4c !important;
+    margin: 0 0 6px 0 !important;
+}
+
+.dashboard-page-bg .page-title-box h4 span {
+    color: #20b486 !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+}
+
+.dashboard-page-bg .page-title-box p {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #477080 !important;
+    margin: 0 !important;
+}
 </style>
 @endsection
 
 @section('content')
+
+<div class="dashboard-page-bg">
+
     @php
         $user = Auth::user();
 
@@ -160,8 +620,15 @@
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Welcome Back, <span class="text-primary">{{ Auth::user()->name }}</span></h4>
-                    <p class="text-muted mb-0">Here's an overview of your dashboard.</p>
+              <h4 class="fs-16 fw-semibold mb-1">
+    Welcome Back, <span class="text-primary">{{ Auth::user()->name }} :</span>
+</h4>
+
+<p class="text-muted mb-0">
+    Here's an overview of your dashboard.
+</p>
+
+                    
                 </div>
                 {{-- <div class="mt-3 mt-sm-0">
                     <ol class="breadcrumb m-0">
@@ -1226,6 +1693,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 

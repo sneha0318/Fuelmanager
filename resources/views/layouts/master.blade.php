@@ -14,6 +14,7 @@
 
     <!-- include head css -->
     @include('layouts.head-css')
+    
 </head>
 
 <body>
