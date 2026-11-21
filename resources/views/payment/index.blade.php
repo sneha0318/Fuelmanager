@@ -295,35 +295,215 @@
     color: #477080 !important;
     margin-bottom: 0 !important;
 }
+/* =====================================================
+   PAYMENT MANAGEMENT
+   SAME DESIGN AS PUMP / ATTENDANCE / SALES / LOAN
+===================================================== */
 
+.payment-management-page .module-table-card {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+}
+
+
+/* TABLE */
+.payment-management-page .module-table-card table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+
+/* =====================================================
+   GREEN TABLE HEADER
+===================================================== */
+
+.payment-management-page .module-table-card thead {
+    background: transparent !important;
+}
+
+.payment-management-page .module-table-card thead tr {
+    background: #2fb79b !important;
+}
+
+.payment-management-page .module-table-card thead th {
+    background: #2fb79b !important;
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    padding: 16px 14px !important;
+
+    border: none !important;
+    white-space: nowrap;
+}
+
+
+/* Header round */
+.payment-management-page .module-table-card thead th:first-child {
+    border-top-left-radius: 15px !important;
+}
+
+.payment-management-page .module-table-card thead th:last-child {
+    border-top-right-radius: 15px !important;
+}
+
+
+/* =====================================================
+   TABLE ROW
+===================================================== */
+
+.payment-management-page .module-table-card tbody {
+    background: transparent !important;
+}
+
+.payment-management-page .module-table-card tbody tr {
+    background: transparent !important;
+    transition: all 0.25s ease;
+}
+
+.payment-management-page .module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.72) !important;
+    color: #294f58 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    padding: 15px 14px !important;
+
+    border-bottom: 1px solid rgba(47, 183, 155, 0.10) !important;
+
+    vertical-align: middle;
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+
+/* =====================================================
+   ROUND ROW EDGES
+===================================================== */
+
+.payment-management-page .module-table-card tbody tr td:first-child {
+    border-top-left-radius: 12px !important;
+    border-bottom-left-radius: 12px !important;
+}
+
+.payment-management-page .module-table-card tbody tr td:last-child {
+    border-top-right-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+}
+
+
+/* =====================================================
+   ROW HOVER
+===================================================== */
+
+.payment-management-page .module-table-card tbody tr:hover {
+    transform: translateX(2px);
+}
+
+.payment-management-page .module-table-card tbody tr:hover td {
+    background: #eaf8f3 !important;
+}
+
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.payment-management-page .module-table-card .badge {
+    padding: 6px 10px !important;
+    border-radius: 20px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.payment-management-page .module-table-card .btn {
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
+}
+
+.payment-management-page .module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   EMPTY TABLE
+===================================================== */
+
+.payment-management-page .module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px !important;
+}
+
+
+/* =====================================================
+   FORM LABELS
+===================================================== */
+
+.payment-management-page .module-table-card .form-label {
+    color: #073b4c !important;
+    font-weight: 600 !important;
+}
+
+
+/* =====================================================
+   IMPORTANT OVERRIDE
+===================================================== */
+
+.payment-management-page table th {
+    background: #2fb79b !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .payment-management-page .module-table-card {
+        border-radius: 16px !important;
+    }
+
+    .payment-management-page .module-table-card thead th,
+    .payment-management-page .module-table-card tbody td {
+        padding: 12px 10px !important;
+    }
+}
 </style>
 
 
 
 <style>
-
-    /* ==============================
-       PAYMENT MANAGEMENT BACKGROUND
-    ============================== */
-
-    .payment-management-page {
-     min-height: calc(100vh - 70px);
+.payment-management-page {
+    min-height: calc(100vh - 70px);
 
     width: calc(100% + 40px);
     margin-left: -20px;
     margin-right: -20px;
-margin-top: -30px;
-    padding: 25px 25px 50px 25px;
+
+    margin-top: -48px;
+
+    /* heading ko neeche lane ke liye */
+    padding: 20px 25px 50px 25px;
 
     background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
     background-size: cover;
-    background-position: center;
+    background-position: center top;
     background-repeat: no-repeat;
 
     box-sizing: border-box;
-
-
-    }
+}
 
 
     /* ==============================
@@ -355,16 +535,344 @@ margin-top: -30px;
     }
 
 
-    /* ==============================
-       CARDS
-    ============================== */
+/* ==============================
+   COMMON WATER / WAVE BOX
+============================== */
 
-    .payment-management-page .card {
-        background: rgba(255, 255, 255, 0.96) !important;
-        border: none !important;
-        border-radius: 18px !important;
-        box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
+.module-table-card {
+    position: relative !important;
+    overflow: hidden !important;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f3fffb 45%,
+        #e5faf3 100%
+    ) !important;
+
+    border: 1px solid rgba(32, 180, 134, 0.12) !important;
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 10px 35px rgba(20, 80, 70, 0.10),
+        0 2px 8px rgba(32, 180, 134, 0.05) !important;
+
+    isolation: isolate;
+}
+
+.module-table-card::before {
+    content: "";
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    top: -390px;
+    right: -180px;
+
+    background: radial-gradient(
+        circle,
+        rgba(32, 180, 134, 0.18) 0%,
+        rgba(32, 180, 134, 0.08) 35%,
+        rgba(32, 180, 134, 0) 70%
+    );
+
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card::after {
+    content: "";
+    position: absolute;
+
+    width: 750px;
+    height: 250px;
+
+    left: -180px;
+    bottom: -145px;
+
+    background: radial-gradient(
+        ellipse,
+        rgba(66, 196, 158, 0.16) 0%,
+        rgba(66, 196, 158, 0.08) 35%,
+        rgba(66, 196, 158, 0) 72%
+    );
+
+    border-radius: 50%;
+    transform: rotate(-8deg);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card .card-body {
+    position: relative !important;
+    z-index: 2 !important;
+    background: transparent !important;
+}
+
+.module-table-card table,
+.module-table-card tbody,
+.module-table-card tr {
+    background: transparent !important;
+}
+
+.module-table-card thead {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.module-table-card thead th {
+    color: #123f45 !important;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 15px 14px;
+
+    border-bottom: 1px solid
+        rgba(32, 180, 134, 0.16) !important;
+}
+
+.module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.42) !important;
+    color: #294f58 !important;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    padding: 15px 14px;
+
+    border-bottom: 1px solid
+        rgba(32, 180, 134, 0.10) !important;
+
+    vertical-align: middle;
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.module-table-card tbody tr {
+    transition: all 0.25s ease;
+}
+
+.module-table-card tbody tr:hover {
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.60) !important;
+}
+
+.module-table-card tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.module-table-card .table-responsive {
+    position: relative;
+    z-index: 3;
+}
+
+.module-table-card .table-responsive::before {
+    content: "";
+
+    position: absolute;
+
+    left: 4%;
+    right: 4%;
+    top: 0;
+
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(32, 180, 134, 0.35),
+        transparent
+    );
+
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.module-table-card .badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.module-table-card .btn {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+.module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px;
+}
+
+@media (max-width: 768px) {
+
+    .module-table-card {
+        border-radius: 16px !important;
     }
+
+    .module-table-card thead th,
+    .module-table-card tbody td {
+        padding: 12px 10px;
+    }
+}
+
+.module-table-card::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    top: -390px;
+    right: -180px;
+
+    background: radial-gradient(
+        circle,
+        rgba(32, 180, 134, 0.18) 0%,
+        rgba(32, 180, 134, 0.08) 35%,
+        rgba(32, 180, 134, 0) 70%
+    );
+
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card::after {
+    content: "";
+    position: absolute;
+    width: 750px;
+    height: 250px;
+    left: -180px;
+    bottom: -145px;
+
+    background: radial-gradient(
+        ellipse,
+        rgba(66, 196, 158, 0.16) 0%,
+        rgba(66, 196, 158, 0.08) 35%,
+        rgba(66, 196, 158, 0) 72%
+    );
+
+    border-radius: 50%;
+    transform: rotate(-8deg);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card .card-body {
+    position: relative !important;
+    z-index: 2 !important;
+    background: transparent !important;
+}
+
+.module-table-card table,
+.module-table-card tbody,
+.module-table-card tr {
+    background: transparent !important;
+}
+
+.module-table-card thead {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.module-table-card thead th {
+    color: #123f45 !important;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.16) !important;
+}
+
+.module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.42) !important;
+    color: #294f58 !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.10) !important;
+    vertical-align: middle;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.module-table-card tbody tr {
+    transition: all 0.25s ease;
+}
+
+.module-table-card tbody tr:hover {
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.60) !important;
+}
+
+.module-table-card tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.module-table-card .table-responsive {
+    position: relative;
+    z-index: 3;
+}
+
+.module-table-card .table-responsive::before {
+    content: "";
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 0;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(32, 180, 134, 0.35),
+        transparent
+    );
+
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.module-table-card .badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.module-table-card .btn {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+.module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px;
+}
+
+@media (max-width: 768px) {
+    .module-table-card {
+        border-radius: 16px !important;
+    }
+
+    .module-table-card thead th,
+    .module-table-card tbody td {
+        padding: 12px 10px;
+    }
+}
 
 
     /* ==============================
@@ -459,9 +967,9 @@ margin-top: -30px;
 
     <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
+         <div class="card module-table-card">
+    <div class="card-body">
+        <div class="table-responsive">
                         <table class="table table-centered table-nowrap mb-0">
                             <thead>
                                 <tr>

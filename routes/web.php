@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 // Auth Controllers
 use App\Http\Controllers\Auth\LoginController;
@@ -33,19 +34,16 @@ use App\Http\Controllers\PartyListController;
 use App\Http\Controllers\StockManagementController;
 
 // Authentication routes
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::get('/login', [LoginController::class, 'showLoginForm'])
+    ->middleware('guest')
+    ->name('login');
+
+Route::post('/login', [LoginController::class, 'login'])
+    ->middleware('guest')
+    ->name('login.submit');
 Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
-// registration routes
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-// Authentication routes
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
-// Removed duplicate route for register.store pointing to UserController
-// Route::post('/register', [UserController::class, 'register'])->name('register.submit');
 
 
 
@@ -69,9 +67,6 @@ Route::get('/get-pump-items/{pump}', [ItemController::class, 'getPumpItems'])->n
 
 // Dashboard route
 Route::get('/', function () {
-    if (!Auth::check()) {
-        return redirect()->route('login');
-    }
 
     $user = Auth::user();
 
@@ -86,11 +81,23 @@ Route::get('/', function () {
 
     // Get loans data for total outstanding amount
     if ($user->user_type === 'super_admin') {
+
         $loans = \App\Models\Loan::with(['paymentEntries'])->get();
+
     } else {
-        // For admin and operator users, only show loans for their assigned pumps
-        $loans = \App\Models\Loan::join('pumps', 'loans.pump_id', '=', 'pumps.id')
-            ->join('pump_users', 'pumps.id', '=', 'pump_users.pump_id')
+
+        $loans = \App\Models\Loan::join(
+                'pumps',
+                'loans.pump_id',
+                '=',
+                'pumps.id'
+            )
+            ->join(
+                'pump_users',
+                'pumps.id',
+                '=',
+                'pump_users.pump_id'
+            )
             ->where('pump_users.email', $user->email)
             ->where('pump_users.status', 'active')
             ->where('pumps.status', 'active')
@@ -99,12 +106,20 @@ Route::get('/', function () {
             ->get();
     }
 
-   return response()
-    ->view('index', compact('totalAmount', 'totalLiters', 'loans'))
-    ->header('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0')
-    ->header('Pragma', 'no-cache')
-    ->header('Expires', '0');
-})->name('dashboard');
+    return response()
+        ->view('index', compact(
+            'totalAmount',
+            'totalLiters',
+            'loans'
+        ))
+        ->header(
+            'Cache-Control',
+            'no-cache, no-store, must-revalidate, max-age=0'
+        )
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
+
+})->middleware('auth')->name('dashboard');
 
 // User Management Routes
 Route::middleware(['auth'])->group(function () {
@@ -302,11 +317,17 @@ Route::middleware(['auth'])->group(function () {
     
 });
 
-// Logout route
-Route::post('/logout', function () {
+Route::post('/logout', function (Request $request) {
+
     Auth::logout();
-    return redirect('/login'); // Redirect to the login page after logout
-})->name('logout');
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    return redirect()->route('login');
+
+})->middleware('auth')->name('logout');
 
 // Catch-all route for other pages
 Route::get('{any}', [HomeController::class, 'index'])->name('index')->where('any', '.*');

@@ -41,21 +41,185 @@ margin-top: -30px;
             margin-bottom: 0 !important;
         }
 
-        /* Card */
-        .expenses-management-page .card {
-            background: rgba(255, 255, 255, 0.96) !important;
-            border: none !important;
-            border-radius: 18px !important;
-            box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
-        }
+/* =====================================================
+   COMMON WATER TABLE CARD DESIGN
+   SAME DESIGN AS OTHER MODULES
+   ===================================================== */
+
+.module-table-card {
+    position: relative !important;
+    overflow: hidden !important;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f3fffb 45%,
+        #e5faf3 100%
+    ) !important;
+
+    border: 1px solid rgba(32, 180, 134, 0.12) !important;
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 10px 35px rgba(20, 80, 70, 0.10),
+        0 2px 8px rgba(32, 180, 134, 0.05) !important;
+
+    isolation: isolate;
+}
+
+.module-table-card::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    top: -390px;
+    right: -180px;
+
+    background: radial-gradient(
+        circle,
+        rgba(32, 180, 134, 0.18) 0%,
+        rgba(32, 180, 134, 0.08) 35%,
+        rgba(32, 180, 134, 0) 70%
+    );
+
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card::after {
+    content: "";
+    position: absolute;
+    width: 750px;
+    height: 250px;
+    left: -180px;
+    bottom: -145px;
+
+    background: radial-gradient(
+        ellipse,
+        rgba(66, 196, 158, 0.16) 0%,
+        rgba(66, 196, 158, 0.08) 35%,
+        rgba(66, 196, 158, 0) 72%
+    );
+
+    border-radius: 50%;
+    transform: rotate(-8deg);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card .card-header,
+.module-table-card .card-body {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.module-table-card .table-responsive {
+    position: relative;
+    z-index: 3;
+}
+
+.module-table-card table,
+.module-table-card tbody,
+.module-table-card tr {
+    background: transparent !important;
+}
+
+/* =========================================
+   TABLE HEADER - SAME AS PUMP MANAGEMENT
+========================================= */
+
+.module-table-card thead {
+    background: #32b99b !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.module-table-card thead th {
+    background: #32b99b !important;
+
+    color: #ffffff !important;
+
+    font-family: "Segoe UI", Arial, sans-serif !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    padding: 16px 14px !important;
+
+    border: none !important;
+
+    vertical-align: middle !important;
+
+    white-space: nowrap;
+}
+
+.module-table-card thead th:first-child {
+    border-top-left-radius: 14px !important;
+}
+
+.module-table-card thead th:last-child {
+    border-top-right-radius: 14px !important;
+}
+
+.module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.42) !important;
+    color: #294f58 !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.10) !important;
+    vertical-align: middle;
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.module-table-card tbody tr {
+    transition: all 0.25s ease;
+}
+
+.module-table-card tbody tr:hover {
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.60) !important;
+}
+
+.module-table-card tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.module-table-card .badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.module-table-card .btn {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .module-table-card {
+        border-radius: 16px !important;
+    }
+
+    .module-table-card thead th,
+    .module-table-card tbody td {
+        padding: 12px 10px;
+    }
+}
 
         /* Table */
-        .expenses-management-page table th {
-            background-color: #f8fdfb !important;
-            color: #073b4c !important;
-            font-weight: 600 !important;
-        }
-
+      .expenses-management-page table th {
+    color: #ffffff !important;
+}
         .expenses-management-page table td {
             color: #315466 !important;
             vertical-align: middle;
@@ -113,6 +277,8 @@ margin-top: -30px;
         .expenses-management-page .modal-footer {
             border-top: 1px solid #e8eeee;
         }
+        
+        
     </style>
 @endsection
 @section('content')
@@ -168,7 +334,7 @@ margin-top: -30px;
 
 <div class="row">
     <div class="col-12">
-        <div class="card">
+     <div class="card module-table-card">
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-centered table-nowrap mb-0">

@@ -55,11 +55,21 @@ class AttendanceController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return redirect()->route('attendance.index')
-            ->with('info', 'Create attendance feature is not yet implemented.');
-    }
+
+public function create()
+{
+    $operators = \App\Models\PumpUser::where('status', 'active')
+        ->where('user_type', 'operator')
+        ->orderBy('user_name')
+        ->get();
+
+    $shifts = Shift::where('is_active', 1)
+        ->orderBy('shift_name')
+        ->get();
+
+    return view('attendance.create', compact('operators', 'shifts'));
+}
+
 
     /**
      * Store a newly created resource in storage.
@@ -67,7 +77,7 @@ class AttendanceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'operator_id' => 'required|exists:users,id',
+           'operator_id' => 'required|exists:pump_users,id',
             'shift_id' => 'required|exists:shifts,id',
             'date' => 'required|date',
             'opening_meter_time' => 'required',
@@ -191,7 +201,7 @@ class AttendanceController extends Controller
         }
         
         $request->validate([
-            'operator_id' => 'required|exists:users,id',
+            'operator_id' => 'required|exists:pump_users,id',
             'shift_id' => 'required|exists:shifts,id',
             'date' => 'required|date',
             'opening_meter_time' => 'required',

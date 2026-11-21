@@ -321,143 +321,369 @@
     User Management
 @endsection
 
-@section('css')
+
 @section('css')
 
 <style>
 
 /* =========================================
-   USER MANAGEMENT FULL BACKGROUND
+   USER MANAGEMENT - SAME PUMP MANAGEMENT UI
 ========================================= */
 
 .user-management-page {
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px) !important;
 
-    width: calc(100% + 40px);
-    margin-left: -20px;
-    margin-right: -20px;
-margin-top: -30px;
-    padding: 25px 25px 50px 25px;
+    width: calc(100% + 40px) !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
 
-    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    margin-top: -30px !important;
 
-    box-sizing: border-box;
+    padding: 25px 30px 60px !important;
+
+    background-image: url("{{ asset('build/images/dashboard-bg.png') }}") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
 }
 
 
 /* =========================================
-   USER MANAGEMENT HEADING
+   TOP HEADER
 ========================================= */
-/* USER MANAGEMENT HEADING */
+
+.user-management-page .page-title-box {
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 0 22px 0 !important;
+}
+
+
 .user-management-page .page-title-box h4 {
+    margin: 0 0 6px 0 !important;
 
     font-size: 30px !important;
+    line-height: 1.2 !important;
 
     font-weight: 900 !important;
 
     color: #073b4c !important;
-
-    margin-bottom: 6px !important;
-
 }
+
 
 .user-management-page .user-green-text {
-
     color: #20b486 !important;
-
 }
 
+
 .user-management-page .page-title-box p {
+    margin: 0 !important;
 
     font-size: 16px !important;
-
     font-weight: 600 !important;
 
     color: #477080 !important;
-
-    margin-bottom: 0 !important;
-
-}
-
-/* =========================================
-   SUBTITLE
-========================================= */
-
-.user-management-page p.text-muted,
-.user-management-page p {
-    color: #477080 !important;
 }
 
 
 /* =========================================
-   MAIN CARD
+   ADD NEW USER BUTTON
 ========================================= */
 
-.user-management-page .card {
-    background: rgba(255, 255, 255, 0.96);
-
-    border: none;
-
-    border-radius: 18px;
-
-    box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
-}
-
-
-/* =========================================
-   TABLE HEADER
-========================================= */
-
-.user-management-page table th {
-    color: #073b4c !important;
-    font-weight: 600;
-}
-
-
-/* =========================================
-   TABLE DATA
-========================================= */
-
-.user-management-page table td {
-    color: #315466 !important;
-}
-
-
-/* =========================================
-   ADD USER BUTTON
-========================================= */
-
-.user-management-page .btn-primary {
+.user-management-page .page-title-box .btn-primary {
     background: #20b486 !important;
+    border: 0 !important;
 
-    border-color: #20b486 !important;
+    color: white !important;
 
-    color: #ffffff !important;
+    padding: 11px 20px !important;
 
-    border-radius: 10px;
+    min-height: 44px;
+
+    border-radius: 10px !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+
+    box-shadow: none !important;
+
+    transition: 0.2s ease;
+}
+
+
+.user-management-page .page-title-box .btn-primary:hover {
+    background: #159f74 !important;
+    transform: translateY(-1px);
 }
 
 
 /* =========================================
-   ACTIVE STATUS
+   TABLE CARD
+========================================= */
+/* =========================================
+   WATER / AQUA DESIGN INSIDE TABLE BOX
+========================================= */
+
+/* =========================================
+   COMMON MODULE TABLE CARD DESIGN
+   ========================================= */
+
+.module-table-card {
+    position: relative !important;
+    overflow: hidden !important;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f3fffb 45%,
+        #e5faf3 100%
+    ) !important;
+
+    border: 1px solid rgba(32, 180, 134, 0.12) !important;
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 10px 35px rgba(20, 80, 70, 0.10),
+        0 2px 8px rgba(32, 180, 134, 0.05) !important;
+
+    isolation: isolate;
+}
+
+.module-table-card::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    top: -390px;
+    right: -180px;
+
+    background: radial-gradient(
+        circle,
+        rgba(32, 180, 134, 0.18) 0%,
+        rgba(32, 180, 134, 0.08) 35%,
+        rgba(32, 180, 134, 0) 70%
+    );
+
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card::after {
+    content: "";
+    position: absolute;
+    width: 750px;
+    height: 250px;
+    left: -180px;
+    bottom: -145px;
+
+    background: radial-gradient(
+        ellipse,
+        rgba(66, 196, 158, 0.16) 0%,
+        rgba(66, 196, 158, 0.08) 35%,
+        rgba(66, 196, 158, 0) 72%
+    );
+
+    border-radius: 50%;
+    transform: rotate(-8deg);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card .card-body {
+    position: relative !important;
+    z-index: 2 !important;
+    background: transparent !important;
+}
+
+.module-table-card table,
+.module-table-card tbody,
+.module-table-card tr {
+    background: transparent !important;
+}
+
+.module-table-card thead {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.module-table-card thead th {
+    color: #123f45 !important;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.16) !important;
+}
+
+.module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.42) !important;
+    color: #294f58 !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.10) !important;
+    vertical-align: middle;
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.module-table-card tbody tr {
+    transition: all 0.25s ease;
+}
+
+.module-table-card tbody tr:hover {
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.60) !important;
+}
+
+.module-table-card tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.module-table-card .table-responsive {
+    position: relative;
+    z-index: 3;
+}
+
+.module-table-card .table-responsive::before {
+    content: "";
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 0;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(32, 180, 134, 0.35),
+        transparent
+    );
+
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.module-table-card .badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.module-table-card .btn {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+.module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px;
+}
+
+@media (max-width: 768px) {
+    .module-table-card {
+        border-radius: 16px !important;
+    }
+
+    .module-table-card thead th,
+    .module-table-card tbody td {
+        padding: 12px 10px;
+    }
+}
+
+
+/* =========================================
+   CARD BODY
+========================================= */
+
+.user-management-page .card-body {
+    padding: 22px !important;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.user-management-page .table-responsive {
+    width: 100% !important;
+}
+
+
+.user-management-page table {
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    background: transparent !important;
+}
+
+
+
+
+
+
+
+
+.user-management-page table tbody td {
+    padding: 17px 15px !important;
+
+    color: #315466 !important;
+
+    font-size: 14px !important;
+
+    font-weight: 500 !important;
+
+    vertical-align: middle !important;
+
+    border-bottom: 1px solid #edf3f0 !important;
+}
+
+
+/* =========================================
+   STATUS
 ========================================= */
 
 .user-management-page .badge.bg-success {
-    background-color: #3cc5a7 !important;
-    color: #ffffff !important;
+    display: inline-block !important;
+
+    padding: 5px 13px !important;
+
+    background: #d9f5e7 !important;
+
+    color: #079957 !important;
+
+    border-radius: 20px !important;
+
+    font-size: 12px !important;
+
+    font-weight: 600 !important;
 }
 
 
-/* =========================================
-   INACTIVE STATUS
-========================================= */
-
 .user-management-page .badge.bg-danger {
-    background-color: #ff6268 !important;
-    color: #ffffff !important;
+    display: inline-block !important;
+
+    padding: 5px 13px !important;
+
+    background: #ffe1e3 !important;
+
+    color: #e64d57 !important;
+
+    border-radius: 20px !important;
+
+    font-size: 12px !important;
+
+    font-weight: 600 !important;
 }
 
 
@@ -466,9 +692,25 @@ margin-top: -30px;
 ========================================= */
 
 .user-management-page .btn-warning {
+    width: 38px !important;
+    height: 38px !important;
+
+    padding: 0 !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
     background: #ffd66b !important;
 
-    border-color: #ffd66b !important;
+    border: none !important;
+
+    border-radius: 9px !important;
+
+    color: #5f4a00 !important;
+
+    margin-right: 6px !important;
 }
 
 
@@ -477,9 +719,46 @@ margin-top: -30px;
 ========================================= */
 
 .user-management-page .btn-danger {
+    width: 38px !important;
+    height: 38px !important;
+
+    padding: 0 !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
     background: #ff6268 !important;
 
-    border-color: #ff6268 !important;
+    border: none !important;
+
+    border-radius: 9px !important;
+
+    color: white !important;
+}
+
+
+/* =========================================
+   NO USERS FOUND
+========================================= */
+
+.user-management-page table tbody td.text-center {
+    padding: 25px !important;
+
+    color: #71847b !important;
+
+    font-size: 14px !important;
+}
+
+
+/* =========================================
+   ALERTS
+========================================= */
+
+.user-management-page .alert {
+    border: none !important;
+    border-radius: 10px !important;
 }
 
 
@@ -488,13 +767,81 @@ margin-top: -30px;
 ========================================= */
 
 .user-management-page .modal-content {
-    border: none;
+    border: none !important;
 
-    border-radius: 18px;
+    border-radius: 18px !important;
+
+    overflow: hidden !important;
+
+    box-shadow: 0 15px 45px rgba(7,59,76,0.18) !important;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 991px) {
+
+    .user-management-page {
+        width: 100% !important;
+
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+
+        padding: 20px 15px 40px !important;
+    }
+
+    .user-management-page .page-title-box h4 {
+        font-size: 25px !important;
+    }
+
+    .user-management-page .card-body {
+        padding: 15px !important;
+    }
+
+}
+/* ===== PUMP TABLE ROW DESIGN ===== */
+
+.pump-management-page .module-table-card table {
+    border-collapse: separate !important;
+    border-spacing: 0 8px !important;
+}
+
+/* Row */
+.pump-management-page .module-table-card tbody tr {
+    background: transparent !important;
+}
+
+/* All cells */
+.pump-management-page .module-table-card tbody td {
+    background: #f1faf6 !important;
+    color: #285861 !important;
+    border: none !important;
+    padding: 16px 14px !important;
+}
+
+/* Left corner */
+.pump-management-page .module-table-card tbody tr td:first-child {
+    border-radius: 12px 0 0 12px !important;
+}
+
+/* Right corner */
+.pump-management-page .module-table-card tbody tr td:last-child {
+    border-radius: 0 12px 12px 0 !important;
+}
+
+/* Row hover */
+.pump-management-page .module-table-card tbody tr:hover td {
+    background: #e3f6ee !important;
+}
+
+/* Remove old row hover movement */
+.pump-management-page .module-table-card tbody tr:hover {
+    transform: none !important;
 }
 
 </style>
-
 
 @endsection
 
@@ -555,7 +902,7 @@ margin-top: -30px;
 
     <div class="row">
         <div class="col-12">
-            <div class="card">
+           <div class="card module-table-card">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-centered table-nowrap mb-0">

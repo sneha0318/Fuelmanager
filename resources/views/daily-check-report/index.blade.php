@@ -169,55 +169,376 @@ margin-top: -30px;
        CARDS
     ============================== */
 
-    .daily-check-report-page .card {
-        background: rgba(255, 255, 255, 0.96) !important;
-        border: none !important;
-        border-radius: 18px !important;
-        box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
+  <style>
+.module-table-card {
+    position: relative !important;
+    overflow: hidden !important;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f3fffb 45%,
+        #e5faf3 100%
+    ) !important;
+
+    border: 1px solid rgba(32, 180, 134, 0.12) !important;
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 10px 35px rgba(20, 80, 70, 0.10),
+        0 2px 8px rgba(32, 180, 134, 0.05) !important;
+
+    isolation: isolate;
+}
+
+.module-table-card::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    top: -390px;
+    right: -180px;
+
+    background: radial-gradient(
+        circle,
+        rgba(32, 180, 134, 0.18) 0%,
+        rgba(32, 180, 134, 0.08) 35%,
+        rgba(32, 180, 134, 0) 70%
+    );
+
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card::after {
+    content: "";
+    position: absolute;
+    width: 750px;
+    height: 250px;
+    left: -180px;
+    bottom: -145px;
+
+    background: radial-gradient(
+        ellipse,
+        rgba(66, 196, 158, 0.16) 0%,
+        rgba(66, 196, 158, 0.08) 35%,
+        rgba(66, 196, 158, 0) 72%
+    );
+
+    border-radius: 50%;
+    transform: rotate(-8deg);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card .card-body {
+    position: relative !important;
+    z-index: 2 !important;
+    background: transparent !important;
+}
+
+.module-table-card table,
+.module-table-card tbody,
+.module-table-card tr {
+    background: transparent !important;
+}
+
+.module-table-card thead {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.module-table-card thead th {
+    color: #123f45 !important;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.16) !important;
+}
+
+.module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.42) !important;
+    color: #294f58 !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.10) !important;
+    vertical-align: middle;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.module-table-card tbody tr {
+    transition: all 0.25s ease;
+}
+
+.module-table-card tbody tr:hover {
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.60) !important;
+}
+
+.module-table-card tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.module-table-card .table-responsive {
+    position: relative;
+    z-index: 3;
+}
+
+.module-table-card .table-responsive::before {
+    content: "";
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 0;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(32, 180, 134, 0.35),
+        transparent
+    );
+
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.module-table-card .badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.module-table-card .btn {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+.module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px;
+}
+
+@media (max-width: 768px) {
+    .module-table-card {
+        border-radius: 16px !important;
     }
 
+    .module-table-card thead th,
+    .module-table-card tbody td {
+        padding: 12px 10px;
+    }
+}
+/* =====================================================
+   DAILY CHECK REPORT
+   SAME DESIGN AS PUMP / ATTENDANCE / SALES / LOAN
+===================================================== */
 
-    /* Card headings */
+/* Table structure */
+.daily-check-report-page .module-table-card table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
 
-    .daily-check-report-page .card-title {
-        color: #073b4c !important;
-        font-weight: 700 !important;
+
+/* =====================================================
+   GREEN ROUNDED TABLE HEADER
+===================================================== */
+
+.daily-check-report-page .module-table-card thead {
+    background: transparent !important;
+}
+
+.daily-check-report-page .module-table-card thead tr {
+    background: #2fb79b !important;
+}
+
+.daily-check-report-page .module-table-card thead th {
+    background: #2fb79b !important;
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    padding: 16px 14px !important;
+
+    border: none !important;
+    white-space: nowrap;
+}
+
+/* Header rounded corners */
+.daily-check-report-page .module-table-card thead th:first-child {
+    border-top-left-radius: 15px !important;
+}
+
+.daily-check-report-page .module-table-card thead th:last-child {
+    border-top-right-radius: 15px !important;
+}
+
+
+/* =====================================================
+   TABLE BODY
+===================================================== */
+
+.daily-check-report-page .module-table-card tbody {
+    background: transparent !important;
+}
+
+.daily-check-report-page .module-table-card tbody tr {
+    background: transparent !important;
+    transition: all 0.25s ease;
+}
+
+.daily-check-report-page .module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.72) !important;
+
+    color: #294f58 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    padding: 15px 14px !important;
+
+    border-bottom: 1px solid rgba(47, 183, 155, 0.10) !important;
+
+    vertical-align: middle;
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+
+/* =====================================================
+   ROUND ROW CORNERS
+===================================================== */
+
+.daily-check-report-page .module-table-card tbody tr td:first-child {
+    border-top-left-radius: 12px !important;
+    border-bottom-left-radius: 12px !important;
+}
+
+.daily-check-report-page .module-table-card tbody tr td:last-child {
+    border-top-right-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+}
+
+
+/* =====================================================
+   ROW HOVER
+===================================================== */
+
+.daily-check-report-page .module-table-card tbody tr:hover {
+    transform: translateX(2px);
+}
+
+.daily-check-report-page .module-table-card tbody tr:hover td {
+    background: #eaf8f3 !important;
+}
+
+
+/* =====================================================
+   TOTAL ROW
+===================================================== */
+
+.daily-check-report-page .module-table-card tbody tr.table-secondary td {
+    background: #e7f6f0 !important;
+    color: #073b4c !important;
+    font-weight: 700 !important;
+}
+
+
+/* =====================================================
+   EMPTY ROW
+===================================================== */
+
+.daily-check-report-page .module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px !important;
+}
+
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.daily-check-report-page .module-table-card .badge {
+    padding: 6px 10px !important;
+    border-radius: 20px !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.daily-check-report-page .module-table-card .btn {
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
+}
+
+.daily-check-report-page .module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   FORM CARD
+===================================================== */
+
+.daily-check-report-page .module-table-card .card-title {
+    color: #073b4c !important;
+    font-weight: 700 !important;
+}
+
+
+/* Form labels */
+.daily-check-report-page .module-table-card .form-label {
+    color: #073b4c !important;
+    font-weight: 600 !important;
+}
+
+
+/* =====================================================
+   REMOVE OLD TABLE HEADER OVERRIDE
+===================================================== */
+
+.daily-check-report-page table th {
+    color: #ffffff !important;
+    background: #2fb79b !important;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .daily-check-report-page .module-table-card {
+        border-radius: 16px !important;
     }
 
-
-    /* ==============================
-       FORM LABELS
-    ============================== */
-
-    .daily-check-report-page .form-label {
-        color: #073b4c !important;
-        font-weight: 600 !important;
+    .daily-check-report-page .module-table-card thead th,
+    .daily-check-report-page .module-table-card tbody td {
+        padding: 12px 10px !important;
     }
+}
 
 
-    /* ==============================
-       TABLE
-    ============================== */
 
-    .daily-check-report-page table th {
-        color: #073b4c !important;
-        font-weight: 600 !important;
-        background-color: #f8fdfb !important;
-    }
-
-    .daily-check-report-page table td {
-        color: #315466 !important;
-    }
-
-
-    /* ==============================
-       FIND BUTTON
-    ============================== */
-
-    .daily-check-report-page .btn-success {
-        background-color: #20b486 !important;
-        border-color: #20b486 !important;
-    }
 
 </style>
 
@@ -248,9 +569,9 @@ margin-top: -30px;
 
     <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Find Report</h5>
+  <div class="card module-table-card">
+    <div class="card-body">
+        <h5 class="card-title">Find Report</h5>
                     <form method="GET" action="{{ route('daily-check-report.index') }}" id="dateFilterForm">
                         <div class="row">
                             <!-- Date Range Filter -->
@@ -326,9 +647,9 @@ margin-top: -30px;
 
     <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
+        <div class="card module-table-card">
+    <div class="card-body">
+        <div class="table-responsive">
                         <table class="table table-centered table-nowrap mb-0">
                             <thead>
                                 <tr>

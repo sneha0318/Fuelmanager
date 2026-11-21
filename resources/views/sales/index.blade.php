@@ -47,10 +47,178 @@ margin-top: -30px;
     box-sizing: border-box;
 }
 
-.sales-management-page .card {
-    background: rgba(255, 255, 255, 0.96) !important;
-    border: none;
-    border-radius: 18px;
+/* ================================
+   COMMON MODULE TABLE CARD DESIGN
+   ================================ */
+
+.module-table-card {
+    position: relative !important;
+    overflow: hidden !important;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f3fffb 45%,
+        #e5faf3 100%
+    ) !important;
+
+    border: 1px solid rgba(32, 180, 134, 0.12) !important;
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 10px 35px rgba(20, 80, 70, 0.10),
+        0 2px 8px rgba(32, 180, 134, 0.05) !important;
+
+    isolation: isolate;
+}
+
+.module-table-card::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    top: -390px;
+    right: -180px;
+
+    background: radial-gradient(
+        circle,
+        rgba(32, 180, 134, 0.18) 0%,
+        rgba(32, 180, 134, 0.08) 35%,
+        rgba(32, 180, 134, 0) 70%
+    );
+
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card::after {
+    content: "";
+    position: absolute;
+    width: 750px;
+    height: 250px;
+    left: -180px;
+    bottom: -145px;
+
+    background: radial-gradient(
+        ellipse,
+        rgba(66, 196, 158, 0.16) 0%,
+        rgba(66, 196, 158, 0.08) 35%,
+        rgba(66, 196, 158, 0) 72%
+    );
+
+    border-radius: 50%;
+    transform: rotate(-8deg);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card .card-body {
+    position: relative !important;
+    z-index: 2 !important;
+    background: transparent !important;
+}
+
+.module-table-card table,
+.module-table-card tbody,
+.module-table-card tr {
+    background: transparent !important;
+}
+
+.module-table-card thead {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.module-table-card thead th {
+    color: #123f45 !important;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.16) !important;
+}
+
+.module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.42) !important;
+    color: #294f58 !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.10) !important;
+    vertical-align: middle;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.module-table-card tbody tr {
+    transition: all 0.25s ease;
+}
+
+.module-table-card tbody tr:hover {
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.60) !important;
+}
+
+.module-table-card tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.module-table-card .table-responsive {
+    position: relative;
+    z-index: 3;
+}
+
+.module-table-card .table-responsive::before {
+    content: "";
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 0;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(32, 180, 134, 0.35),
+        transparent
+    );
+
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.module-table-card .badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.module-table-card .btn {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+.module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px;
+}
+
+@media (max-width: 768px) {
+    .module-table-card {
+        border-radius: 16px !important;
+    }
+
+    .module-table-card thead th,
+    .module-table-card tbody td {
+        padding: 12px 10px;
+    }
 }
 
 .sales-management-page table th {
@@ -237,7 +405,167 @@ margin-top: -30px;
             font-size: 12px !important;
         }
     }
-    
+    /* =====================================================
+   SALES MANAGEMENT
+   SAME TABLE DESIGN AS PUMP / ATTENDANCE
+===================================================== */
+
+/* Table structure */
+.sales-management-page .module-table-card table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+
+/* =====================================================
+   GREEN ROUNDED HEADER
+===================================================== */
+
+.sales-management-page .module-table-card thead {
+    background: transparent !important;
+}
+
+.sales-management-page .module-table-card thead tr {
+    background: #2fb79b !important;
+}
+
+.sales-management-page .module-table-card thead th {
+    background: #2fb79b !important;
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    padding: 16px 14px !important;
+
+    border: none !important;
+    white-space: nowrap;
+}
+
+/* Top-left round */
+.sales-management-page .module-table-card thead th:first-child {
+    border-top-left-radius: 15px !important;
+}
+
+/* Top-right round */
+.sales-management-page .module-table-card thead th:last-child {
+    border-top-right-radius: 15px !important;
+}
+
+
+/* =====================================================
+   TABLE ROWS
+===================================================== */
+
+.sales-management-page .module-table-card tbody tr {
+    background: transparent !important;
+    transition: all 0.25s ease;
+}
+
+.sales-management-page .module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.72) !important;
+
+    color: #294f58 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    padding: 15px 14px !important;
+
+    border-bottom: 1px solid rgba(47, 183, 155, 0.10) !important;
+
+    vertical-align: middle;
+}
+
+
+/* =====================================================
+   ROUND ROW CORNERS
+===================================================== */
+
+.sales-management-page .module-table-card tbody tr td:first-child {
+    border-top-left-radius: 12px !important;
+    border-bottom-left-radius: 12px !important;
+}
+
+.sales-management-page .module-table-card tbody tr td:last-child {
+    border-top-right-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+}
+
+
+/* =====================================================
+   ROW HOVER
+===================================================== */
+
+.sales-management-page .module-table-card tbody tr:hover {
+    transform: translateX(2px);
+}
+
+.sales-management-page .module-table-card tbody tr:hover td {
+    background: #eaf8f3 !important;
+}
+
+
+/* =====================================================
+   EMPTY ROW
+===================================================== */
+
+.sales-management-page .module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px !important;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.sales-management-page .module-table-card .btn {
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
+}
+
+.sales-management-page .module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.sales-management-page .module-table-card .badge {
+    padding: 6px 10px !important;
+    border-radius: 20px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =====================================================
+   REMOVE OLD TABLE HEADER COLOR
+===================================================== */
+
+.sales-management-page .table th {
+    color: #ffffff !important;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .sales-management-page .module-table-card {
+        border-radius: 16px !important;
+    }
+
+    .sales-management-page .module-table-card thead th,
+    .sales-management-page .module-table-card tbody td {
+        padding: 12px 10px !important;
+    }
+}
 </style>
 @endsection
 
@@ -435,6 +763,7 @@ margin-top: -30px;
             const saleDateInput = document.getElementById('sale_date');
             const saleTimeInput = document.getElementById('sale_time');
             const rateInput = document.getElementById('rate');
+            const currentUserType = document.querySelector('meta[name="user-type"]').content;
 
             // Function to load nozzles when a pump is selected
             function loadNozzles(pumpId, selectedNozzleId = null, isEdit = false) {
@@ -670,7 +999,7 @@ margin-top: -30px;
                     }
 
                     // Check if nozzle has assigned shifts
-                    if (shiftIds.length === 0) {
+                    if (shiftIds.length === 0 && currentUserType !== 'super_admin' && currentUserType !== 'admin') {
                         const submitButton = document.querySelector('#addSaleModal button[type="submit"]');
                         if (submitButton) submitButton.disabled = true;
 
@@ -1103,8 +1432,8 @@ margin-top: -30px;
 
     <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-body">
+           <div class="card module-table-card">
+    <div class="card-body">
                     {{-- Date Filter --}}
                     <div class="row mb-3 mobile-header-controls">
                         <div class="col-md-2 col-12">

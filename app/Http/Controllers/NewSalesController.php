@@ -211,15 +211,17 @@ class NewSalesController extends Controller
             $sale->status = $request->status;
             $sale->save();
 
-            // Create attendance record
-            $activeShift = Shift::where('pump_id', $request->pump_id)
-                ->whereHas('pumpUser', function($query) use ($user) {
-                    $query->where('email', $user->email);
-                })
-                ->where('is_active', true)
-                ->whereDate('start_date', '<=', now())
-                ->whereDate('end_date', '>=', now())
-                ->first();
+ 
+$activeShift = Shift::where('pump_id', $request->pump_id)
+    ->whereHas('pumpUser', function ($query) use ($user) {
+        $query->where('email', $user->email);
+    })
+    ->where('is_active', true)
+    ->whereDate('start_date', '<=', $request->sale_date)
+    ->whereDate('end_date', '>=', $request->sale_date)
+    ->first();
+
+
 
             if ($activeShift) {
                 // Check if attendance record already exists

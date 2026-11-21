@@ -299,14 +299,6 @@ class NozzleController extends Controller
                     // For admin users (both super_admin and admin), show all nozzles with operator info
                     if ($isAdmin) {
                         $displayText = "Nozzle #{$nozzle->nozzle_number} - {$nozzle->item->name}";
-                        if ($shiftInfo->isNotEmpty()) {
-                            $operatorInfo = $shiftInfo->map(function($info) {
-                                return "{$info['shift_name']} ({$info['operator_name']})";
-                            })->join(', ');
-                            $displayText .= " [{$operatorInfo}]";
-                        } else {
-                            $displayText .= " [Not Assigned]";
-                        }
                     } else {
                         // For operators, only show their assigned nozzles
                         $userShifts = $shiftInfo->filter(function($info) use ($user) {

@@ -42,12 +42,11 @@ class Attendance extends BaseModel
         return $this->closing_meter_time ? $this->closing_meter_time->format('H:i:s') : null;
     }
 
-    // Relationship with operator (User)
-    public function operator()
-    {
-        return $this->belongsTo(User::class, 'operator_id');
-    }
-
+  // Relationship with operator (PumpUser)
+public function operator()
+{
+    return $this->belongsTo(PumpUser::class, 'operator_id');
+}
     // Relationship with shift
     public function shift()
     {

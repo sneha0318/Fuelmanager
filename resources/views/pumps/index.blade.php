@@ -670,17 +670,253 @@ margin-top: -30px;
    MAIN TABLE CARD
    ========================================= */
 
+/* =========================================
+   PUMP TABLE BOX - DASHBOARD WATER DESIGN
+   ========================================= */
+
+/* =========================================
+   PUMP TABLE BOX - WATER DESIGN
+   ========================================= */
+
 .pump-management-page .pump-table-card {
-    background: rgba(255, 255, 255, 0.96);
+    position: relative;
+    overflow: hidden;
 
-    border: 1px solid rgba(32, 180, 134, 0.12);
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f3fffb 45%,
+        #e5faf3 100%
+    ) !important;
 
-    border-radius: 16px;
+    border: 1px solid rgba(32, 180, 134, 0.12) !important;
+    border-radius: 20px !important;
 
     box-shadow:
-        0 10px 30px rgba(20, 80, 70, 0.08);
+        0 10px 35px rgba(20, 80, 70, 0.10),
+        0 2px 8px rgba(32, 180, 134, 0.05);
 
-    overflow: hidden;
+    isolation: isolate;
+}
+
+
+/* =========================================
+   SOFT WATER WAVES
+   ========================================= */
+
+.pump-management-page .pump-table-card::before {
+    content: "";
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    top: -390px;
+    right: -180px;
+
+    background: radial-gradient(
+        circle,
+        rgba(32, 180, 134, 0.18) 0%,
+        rgba(32, 180, 134, 0.08) 35%,
+        rgba(32, 180, 134, 0) 70%
+    );
+
+    border-radius: 50%;
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+/* Second water layer */
+
+.pump-management-page .pump-table-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 750px;
+    height: 250px;
+
+    left: -180px;
+    bottom: -145px;
+
+    background: radial-gradient(
+        ellipse,
+        rgba(66, 196, 158, 0.16) 0%,
+        rgba(66, 196, 158, 0.08) 35%,
+        rgba(66, 196, 158, 0) 72%
+    );
+
+    border-radius: 50%;
+
+    transform: rotate(-8deg);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+/* =========================================
+   CONTENT ABOVE WATER EFFECT
+   ========================================= */
+
+.pump-management-page .pump-table-card .card-body {
+    position: relative;
+    z-index: 2;
+
+    background: transparent !important;
+}
+
+
+/* =========================================
+   TABLE TRANSPARENT
+   ========================================= */
+
+.pump-management-page .pump-table-card table,
+.pump-management-page .pump-table-card tbody,
+.pump-management-page .pump-table-card tr {
+    background: transparent !important;
+}
+
+
+/* =========================================
+   TABLE HEADER
+   ========================================= */
+
+.pump-management-page .pump-table-card thead {
+    background: rgba(255, 255, 255, 0.72) !important;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+
+
+/* ===== LIGHT PETROL GREEN TABLE HEADER ===== */
+.pump-management-page .pump-table-card thead th {
+    background: #32b995 !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border-bottom: none !important;
+}
+/* ===== ROUND CORNERS FOR TABLE HEADER ===== */
+.pump-management-page .pump-table-card thead th:first-child {
+    border-top-left-radius: 12px !important;
+}
+
+.pump-management-page .pump-table-card thead th:last-child {
+    border-top-right-radius: 12px !important;
+}
+
+
+/* =========================================
+   TABLE ROWS
+   ========================================= */
+
+.pump-management-page .pump-table-card tbody td {
+    background: rgba(255, 255, 255, 0.42) !important;
+
+    color: #294f58 !important;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    padding: 15px 14px;
+
+    border-bottom: 1px solid rgba(32, 180, 134, 0.10);
+
+    vertical-align: middle;
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+
+/* =========================================
+   ROW HOVER
+   ========================================= */
+
+.pump-management-page .pump-table-card tbody tr {
+    transition: all 0.25s ease;
+}
+
+
+.pump-management-page .pump-table-card tbody tr:hover {
+    background: rgba(255, 255, 255, 0.60) !important;
+
+    transform: translateX(2px);
+}
+
+
+.pump-management-page .pump-table-card tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.58) !important;
+}
+
+
+/* =========================================
+   WATER SHINE LINE
+   ========================================= */
+
+.pump-management-page .pump-table-card .table-responsive {
+    position: relative;
+    z-index: 3;
+}
+
+
+.pump-management-page .pump-table-card .table-responsive::before {
+    content: "";
+
+    position: absolute;
+
+    left: 4%;
+    right: 4%;
+    top: 0;
+
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(32, 180, 134, 0.35),
+        transparent
+    );
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   EMPTY TABLE
+   ========================================= */
+
+.pump-management-page .pump-table-card .no-pumps {
+    background: transparent !important;
+}
+
+/* Table content above background */
+.pump-management-page .pump-table-card .card-body {
+    position: relative;
+    z-index: 1;
+}
+
+/* Keep table transparent so background is visible */
+.pump-management-page .pump-table-card table,
+.pump-management-page .pump-table-card tbody,
+.pump-management-page .pump-table-card tr {
+    background: transparent !important;
+}
+
+/* Header slightly white */
+.pump-management-page .pump-table-card thead {
+    background: rgba(255, 255, 255, 0.70) !important;
+}
+
+/* Table cells */
+.pump-management-page .pump-table-card tbody td {
+    background: rgba(255, 255, 255, 0.48) !important;
 }
 
 

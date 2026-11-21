@@ -45,14 +45,288 @@
 </script>
 @endsection
 @section('css')
+<style>
+
+/* =========================================================
+   REGISTERED USERS / SUPER ADMIN MANAGEMENT
+   PUMP MANAGEMENT JAISE DESIGN
+   ========================================================= */
+
+.super-admin-management-page {
+    min-height: calc(100vh - 70px);
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-top: -30px;
+
+    padding: 25px 25px 50px 25px;
+
+ background:
+    linear-gradient(
+        rgba(220, 250, 242, 0.60),
+        rgba(220, 250, 242, 0.60)
+    ),
+    url("{{ asset('build/images/dashboard-bg.png') }}");
+
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+
+    box-sizing: border-box;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+
+.super-admin-title {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+
+    font-size: 30px !important;
+    font-weight: 900 !important;
+
+    color: #20b486 !important;
+
+    margin: 0 0 6px 0 !important;
+
+    letter-spacing: 0.2px;
+}
+
+.super-admin-title span {
+    color: #073b4c !important;
+}
+
+.super-admin-management-page .page-title-box p {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+
+    font-size: 16px !important;
+    font-weight: 600 !important;
+
+    color: #477080 !important;
+
+    margin: 0 !important;
+}
+
+
+/* =========================
+   MAIN CARD
+   ========================= */
+
+.super-admin-management-page .card {
+    background: rgba(255, 255, 255, 0.94) !important;
+
+    border: none !important;
+
+    border-radius: 18px !important;
+
+    box-shadow:
+        0 12px 35px rgba(32, 180, 134, 0.15) !important;
+
+    overflow: hidden;
+}
+
+
+/* =========================
+   CARD BODY
+   ========================= */
+
+.super-admin-management-page .card-body {
+    padding: 28px !important;
+}
+
+
+/* =========================
+   TABLE
+   ========================= */
+
+.super-admin-management-page .table {
+    margin-bottom: 0 !important;
+
+    font-family: "Segoe UI", Arial, sans-serif !important;
+}
+
+
+/* TABLE HEADER */
+
+.super-admin-management-page .table thead th {
+    background: #32b99b !important;
+
+    color: #ffffff !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    padding: 16px 14px !important;
+
+    border: none !important;
+
+    white-space: nowrap;
+}
+
+
+/* HEADER CORNERS */
+
+.super-admin-management-page .table thead th:first-child {
+    border-top-left-radius: 14px;
+}
+
+.super-admin-management-page .table thead th:last-child {
+    border-top-right-radius: 14px;
+}
+
+
+/* TABLE BODY */
+
+.super-admin-management-page .table tbody td {
+    color: #315466 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    padding: 17px 14px !important;
+
+    vertical-align: middle !important;
+
+    border-bottom: 1px solid rgba(50, 185, 155, 0.12) !important;
+
+    background: rgba(255, 255, 255, 0.65) !important;
+}
+
+
+/* ROW HOVER */
+
+.super-admin-management-page .table tbody tr:hover td {
+    background: rgba(226, 249, 242, 0.85) !important;
+}
+
+
+/* =========================
+   STATUS BADGE
+   ========================= */
+
+.super-admin-management-page .badge {
+    border-radius: 8px !important;
+
+    padding: 6px 12px !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
+
+.super-admin-management-page .badge.bg-success {
+    background: #d9f5ec !important;
+
+    color: #12a982 !important;
+}
+
+.super-admin-management-page .badge.bg-danger {
+    background: #ffe1e3 !important;
+
+    color: #e5484d !important;
+}
+
+
+/* =========================
+   DEACTIVATE / ACTIVATE
+   ========================= */
+
+.super-admin-management-page .btn-warning {
+    background: #ffd166 !important;
+
+    border: none !important;
+
+    color: #ffffff !important;
+
+    border-radius: 6px !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    padding: 7px 13px !important;
+
+    box-shadow: none !important;
+}
+
+.super-admin-management-page .btn-warning:hover {
+    background: #f5bd3d !important;
+
+    color: #ffffff !important;
+}
+
+.super-admin-management-page .btn-success {
+    background: #20b486 !important;
+
+    border: none !important;
+
+    color: #ffffff !important;
+
+    border-radius: 6px !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    padding: 7px 13px !important;
+}
+
+
+/* =========================
+   TABLE RESPONSIVE
+   ========================= */
+
+.super-admin-management-page .table-responsive {
+    border-radius: 14px;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+
+    .super-admin-management-page {
+        width: calc(100% + 20px);
+
+        margin-left: -10px;
+        margin-right: -10px;
+
+        padding: 20px 15px 40px 15px;
+    }
+
+    .super-admin-management-page .page-title-box h4 {
+        font-size: 24px !important;
+    }
+
+    .super-admin-management-page .page-title-box p {
+        font-size: 14px !important;
+    }
+
+    .super-admin-management-page .card-body {
+        padding: 18px !important;
+    }
+
+    .super-admin-management-page .table thead th,
+    .super-admin-management-page .table tbody td {
+        font-size: 12px !important;
+
+        padding: 12px 10px !important;
+    }
+}
+
+</style>
 @endsection
 
 @section('content')
+
+<div class="super-admin-management-page">
+
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <div>
-                    <h4 class="fs-16 fw-semibold mb-1">Super Admin Management</h4>
+                   <h4 class="super-admin-title">
+    <span>SUPER ADMIN</span> MANAGEMENT :
+</h4>
                     <p class="text-muted mb-0">Manage registered super admin users here</p>
                 </div>
             </div>

@@ -8,22 +8,189 @@
 @section('css')
 
 <style>
-    
+/* =====================================================
+   DASHBOARD COMMON CARD DESIGN
+   ===================================================== */
+
+.dashboard-card {
+    position: relative !important;
+    overflow: hidden !important;
+background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+   #e8f6f0 50%,
+   #e5f5ef 50%
+) !important;
+
+    border: 1px solid rgba(32, 180, 134, 0.12) !important;
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 10px 35px rgba(20, 80, 70, 0.10),
+        0 2px 8px rgba(32, 180, 134, 0.05) !important;
+
+    isolation: isolate;
+}
+
+.dashboard-card::before {
+    content: "";
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    top: -390px;
+    right: -180px;
+
+    background: radial-gradient(
+        circle,
+       rgba(32, 180, 134, 0.08) 0%,
+       rgba(32, 180, 134, 0.035)35%,
+        rgba(32, 180, 134, 0) 70%
+    );
+
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.dashboard-card::after {
+    content: "";
+    position: absolute;
+
+    width: 750px;
+    height: 250px;
+
+    left: -180px;
+    bottom: -145px;
+
+    background: radial-gradient(
+        ellipse,
+       rgba((66, 196, 158, 0.07)) 0%,
+       rgba(66, 196, 158, 0.03)35%,
+        rgba(66, 196, 158, 0) 72%
+    );
+
+    border-radius: 50%;
+    transform: rotate(-8deg);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.dashboard-card > *,
+.dashboard-card .card-body,
+.dashboard-card .card-header {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.dashboard-card .card-header {
+    background: transparent !important;
+}
+
+.dashboard-card table,
+.dashboard-card tbody,
+.dashboard-card tr {
+    background: transparent !important;
+}
+
+.dashboard-card thead {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.dashboard-card thead th {
+    color: #123f45 !important;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.16) !important;
+}
+
+.dashboard-card tbody td {
+    background: rgba(255, 255, 255, 0.42) !important;
+    color: #294f58 !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.10) !important;
+    vertical-align: middle;
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.dashboard-card tbody tr {
+    transition: all 0.25s ease;
+}
+
+.dashboard-card tbody tr:hover {
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.60) !important;
+}
+
+.dashboard-card tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.dashboard-card .table-responsive {
+    position: relative;
+    z-index: 3;
+}
+
+.dashboard-card .table-responsive::before {
+    content: "";
+
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 0;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(32, 180, 134, 0.35),
+        transparent
+    );
+
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.dashboard-card .badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.dashboard-card .btn {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.dashboard-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+.dashboard-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px;
+}
+
+@media (max-width: 768px) {
     .dashboard-card {
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
+        border-radius: 16px !important;
     }
-    .dashboard-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+
+    .dashboard-card thead th,
+    .dashboard-card tbody td {
+        padding: 12px 10px;
     }
-    .stat-card {
-        background: linear-gradient(45deg, #fff, #f8f9fa);
-        border-radius: 12px;
-        padding: 1.5rem;
-    }
+}
     .stat-icon {
         width: 48px;
         height: 48px;
@@ -114,33 +281,24 @@
     }
 
 
-    /* ================= DASHBOARD BACKGROUND ================= */
-
-/* ================= DASHBOARD FULL BACKGROUND ================= */
-
-/* ================================
-   DASHBOARD BACKGROUND
-   SAME AS PUMP MANAGEMENT
-================================ */
-
 .dashboard-page-bg {
-     min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
 
     width: calc(100% + 40px);
     margin-left: -20px;
     margin-right: -20px;
-margin-top: -30px;
+    margin-top: -30px;
+
     padding: 25px 25px 50px 25px;
 
-    background-image: url("{{ asset('build/images/dashboard-bg.png') }}");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-image: url("/build/images/dashboard-bg.png") !important;
+background-size: cover !important;
+background-position: center !important;
+background-repeat: no-repeat !important;
+min-height: calc(100vh - 70px) !important;
 
     box-sizing: border-box;
 }
-
-
 /* Keep dashboard content above background */
 /* .dashboard-page-bg > * {
     position: relative;
@@ -534,14 +692,7 @@ margin-top: -30px;
 }
 
 
-/* ================================
-   BACKGROUND LIGHT
-   ================================ */
 
-/* .dashboard-page-bg::before {
-    background: rgba(0, 80, 60, 0.03) !important;
-} */
-/* 
 
 
 /* DASHBOARD TITLE - SAME AS PUMP MANAGEMENT */
@@ -566,7 +717,113 @@ margin-top: -30px;
     font-weight: 600 !important;
     color: #477080 !important;
     margin: 0 !important;
+}/* =====================================================
+   STOCK MANAGEMENT - ONLY ROW DESIGN
+   PUMP MANAGEMENT JAISE
+===================================================== */
+
+.stock-management-page #datatable {
+    border-collapse: separate !important;
+    border-spacing: 0 8px !important;
 }
+
+/* Row */
+.stock-management-page #datatable tbody tr {
+    background: transparent !important;
+    transition: all 0.25s ease !important;
+}
+
+/* Every cell */
+.stock-management-page #datatable tbody tr td {
+    background: #eef9f4 !important;
+
+    /* Bootstrap/DataTable override */
+    --bs-table-bg: #eef9f4 !important;
+    --bs-table-accent-bg: #eef9f4 !important;
+
+    box-shadow: none !important;
+
+    color: #285861 !important;
+
+    padding: 15px 14px !important;
+
+    border-top: 1px solid rgba(32, 180, 134, 0.18) !important;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.18) !important;
+
+    vertical-align: middle !important;
+}
+
+/* LEFT SIDE OF ROW */
+.stock-management-page #datatable tbody tr td:first-child {
+    border-left: 1px solid rgba(32, 180, 134, 0.18) !important;
+
+    border-top-left-radius: 14px !important;
+    border-bottom-left-radius: 14px !important;
+}
+
+/* RIGHT SIDE OF ROW */
+.stock-management-page #datatable tbody tr td:last-child {
+    border-right: 1px solid rgba(32, 180, 134, 0.18) !important;
+
+    border-top-right-radius: 14px !important;
+    border-bottom-right-radius: 14px !important;
+}
+
+/* FORCE BOTH DATATABLE ROW TYPES */
+.stock-management-page #datatable tbody tr.odd td,
+.stock-management-page #datatable tbody tr.even td {
+    background: #eef9f4 !important;
+    --bs-table-bg: #eef9f4 !important;
+    box-shadow: none !important;
+}
+
+/* HOVER */
+.stock-management-page #datatable tbody tr:hover td {
+    background: #dff5ec !important;
+
+    border-top-color: rgba(32, 180, 134, 0.30) !important;
+    border-bottom-color: rgba(32, 180, 134, 0.30) !important;
+}
+
+/* Keep buttons normal */
+.stock-management-page #datatable .btn {
+    position: relative;
+    z-index: 5;
+}
+
+/* Stock Management Table Header - Image 2 Style */
+.stock-management-page #datatable thead th,
+.stock-management-page .module-table-card thead th,
+.stock-management-page table thead th,
+.module-table-card .table thead th {
+    background: #2db69b !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    padding: 15px 12px !important;
+    border: none !important;
+    white-space: nowrap;
+}
+
+/* Rounded top corners */
+.stock-management-page #datatable thead th:first-child,
+.stock-management-page .module-table-card thead th:first-child {
+    border-top-left-radius: 12px !important;
+}
+
+.stock-management-page #datatable thead th:last-child,
+.stock-management-page .module-table-card thead th:last-child {
+    border-top-right-radius: 12px !important;
+}
+
+/* Keep text white on hover */
+.stock-management-page table thead tr:hover th,
+.module-table-card .table thead tr:hover th {
+    background: #2db69b !important;
+    color: #ffffff !important;
+}
+
+
 </style>
 @endsection
 
@@ -908,7 +1165,7 @@ margin-top: -30px;
 
             <div class="row">
                 <div class="col-xl-{{ Auth::user()->user_type === 'operator' ? '12' : '8' }}">
-                    <div class="card dashboard-card">
+                  <div class="card dashboard-card">
                         <div class="card-header bg-transparent border-0">
                             <div class="d-flex align-items-center">
                                 <div class="stat-icon bg-primary bg-opacity-10 text-primary me-3">
@@ -1616,7 +1873,7 @@ margin-top: -30px;
 
         <!-- Expenses Overview Section -->
         <div class="col-xl-6">
-            <div class="card dashboard-card">
+        <div class="card dashboard-card">
                 <div class="card-header bg-transparent border-0">
                     <div class="d-flex align-items-center">
                         <div class="stat-icon bg-danger bg-opacity-10 text-danger me-3">
@@ -1655,8 +1912,7 @@ margin-top: -30px;
 
     <!-- Party List Overview Section -->
     <div class="row mt-4">
-        <div class="col-12">
-            <div class="card dashboard-card">
+        <div class="col-12"><div class="card dashboard-card">
                 <div class="card-header bg-transparent border-0">
                     <div class="d-flex align-items-center">
                         <div class="stat-icon bg-info bg-opacity-10 text-info me-3">

@@ -724,25 +724,541 @@ margin-top: -30px;
 
 
     /* Cards */
-    .loan-management-page .card {
-        background: rgba(255, 255, 255, 0.96) !important;
-        border: none !important;
-        border-radius: 18px !important;
-        box-shadow: 0 8px 25px rgba(7, 59, 76, 0.08);
+
+.module-table-card {
+    position: relative !important;
+    overflow: hidden !important;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f3fffb 45%,
+        #e5faf3 100%
+    ) !important;
+
+    border: 1px solid rgba(32, 180, 134, 0.12) !important;
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 10px 35px rgba(20, 80, 70, 0.10),
+        0 2px 8px rgba(32, 180, 134, 0.05) !important;
+
+    isolation: isolate;
+}
+
+.module-table-card::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    top: -390px;
+    right: -180px;
+
+    background: radial-gradient(
+        circle,
+        rgba(32, 180, 134, 0.18) 0%,
+        rgba(32, 180, 134, 0.08) 35%,
+        rgba(32, 180, 134, 0) 70%
+    );
+
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card::after {
+    content: "";
+    position: absolute;
+    width: 750px;
+    height: 250px;
+    left: -180px;
+    bottom: -145px;
+
+    background: radial-gradient(
+        ellipse,
+        rgba(66, 196, 158, 0.16) 0%,
+        rgba(66, 196, 158, 0.08) 35%,
+        rgba(66, 196, 158, 0) 72%
+    );
+
+    border-radius: 50%;
+    transform: rotate(-8deg);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card .card-body {
+    position: relative !important;
+    z-index: 2 !important;
+    background: transparent !important;
+}
+
+.module-table-card table,
+.module-table-card tbody,
+.module-table-card tr {
+    background: transparent !important;
+}
+
+.module-table-card thead {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.module-table-card thead th {
+    color: #123f45 !important;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.16) !important;
+}
+
+.module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.42) !important;
+    color: #294f58 !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.10) !important;
+    vertical-align: middle;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.module-table-card tbody tr {
+    transition: all 0.25s ease;
+}
+
+.module-table-card tbody tr:hover {
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.60) !important;
+}
+
+.module-table-card tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.module-table-card .table-responsive {
+    position: relative;
+    z-index: 3;
+}
+
+.module-table-card .table-responsive::before {
+    content: "";
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 0;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(32, 180, 134, 0.35),
+        transparent
+    );
+
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.module-table-card .badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.module-table-card .btn {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+.module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px;
+}
+
+@media (max-width: 768px) {
+    .module-table-card {
+        border-radius: 16px !important;
     }
 
+    .module-table-card thead th,
+    .module-table-card tbody td {
+        padding: 12px 10px;
+    }
+}
+/* Cards */
 
-    /* Table Heading */
-    .loan-management-page table th {
-        color: #073b4c !important;
-        font-weight: 600 !important;
+.module-table-card {
+    position: relative !important;
+    overflow: hidden !important;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f3fffb 45%,
+        #e5faf3 100%
+    ) !important;
+
+    border: 1px solid rgba(32, 180, 134, 0.12) !important;
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 10px 35px rgba(20, 80, 70, 0.10),
+        0 2px 8px rgba(32, 180, 134, 0.05) !important;
+
+    isolation: isolate;
+}
+
+.module-table-card::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    top: -390px;
+    right: -180px;
+
+    background: radial-gradient(
+        circle,
+        rgba(32, 180, 134, 0.18) 0%,
+        rgba(32, 180, 134, 0.08) 35%,
+        rgba(32, 180, 134, 0) 70%
+    );
+
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card::after {
+    content: "";
+    position: absolute;
+    width: 750px;
+    height: 250px;
+    left: -180px;
+    bottom: -145px;
+
+    background: radial-gradient(
+        ellipse,
+        rgba(66, 196, 158, 0.16) 0%,
+        rgba(66, 196, 158, 0.08) 35%,
+        rgba(66, 196, 158, 0) 72%
+    );
+
+    border-radius: 50%;
+    transform: rotate(-8deg);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.module-table-card .card-body {
+    position: relative !important;
+    z-index: 2 !important;
+    background: transparent !important;
+}
+
+.module-table-card table,
+.module-table-card tbody,
+.module-table-card tr {
+    background: transparent !important;
+}
+
+.module-table-card thead {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.module-table-card thead th {
+    color: #123f45 !important;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.16) !important;
+}
+
+.module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.42) !important;
+    color: #294f58 !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 14px;
+    border-bottom: 1px solid rgba(32, 180, 134, 0.10) !important;
+    vertical-align: middle;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.module-table-card tbody tr {
+    transition: all 0.25s ease;
+}
+
+.module-table-card tbody tr:hover {
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.60) !important;
+}
+
+.module-table-card tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.module-table-card .table-responsive {
+    position: relative;
+    z-index: 3;
+}
+
+.module-table-card .table-responsive::before {
+    content: "";
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 0;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(32, 180, 134, 0.35),
+        transparent
+    );
+
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.module-table-card .badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.module-table-card .btn {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+.module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px;
+}
+
+@media (max-width: 768px) {
+    .module-table-card {
+        border-radius: 16px !important;
     }
 
-
-    /* Table Data */
-    .loan-management-page table td {
-        color: #315466 !important;
+    .module-table-card thead th,
+    .module-table-card tbody td {
+        padding: 12px 10px;
     }
+}
+/* =====================================================
+   LOAN MANAGEMENT
+   SAME DESIGN AS PUMP / ATTENDANCE / SALES
+===================================================== */
+
+/* Main table structure */
+.loan-management-page .module-table-card table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+
+/* =====================================================
+   GREEN ROUNDED TABLE HEADER
+===================================================== */
+
+.loan-management-page .module-table-card thead {
+    background: transparent !important;
+}
+
+.loan-management-page .module-table-card thead tr {
+    background: #2fb79b !important;
+}
+
+.loan-management-page .module-table-card thead th {
+    background: #2fb79b !important;
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    padding: 16px 14px !important;
+
+    border: none !important;
+    white-space: nowrap;
+}
+
+.loan-management-page .module-table-card thead th:first-child {
+    border-top-left-radius: 15px !important;
+}
+
+.loan-management-page .module-table-card thead th:last-child {
+    border-top-right-radius: 15px !important;
+}
+
+
+/* =====================================================
+   TABLE BODY
+===================================================== */
+
+.loan-management-page .module-table-card tbody {
+    background: transparent !important;
+}
+
+.loan-management-page .module-table-card tbody tr {
+    background: transparent !important;
+    transition: all 0.25s ease;
+}
+
+.loan-management-page .module-table-card tbody td {
+    background: rgba(255, 255, 255, 0.72) !important;
+
+    color: #294f58 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    padding: 15px 14px !important;
+
+    border-bottom: 1px solid rgba(47, 183, 155, 0.10) !important;
+
+    vertical-align: middle;
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+
+/* =====================================================
+   ROUND ROW EDGES
+===================================================== */
+
+.loan-management-page .module-table-card tbody tr td:first-child {
+    border-top-left-radius: 12px !important;
+    border-bottom-left-radius: 12px !important;
+}
+
+.loan-management-page .module-table-card tbody tr td:last-child {
+    border-top-right-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+}
+
+
+/* =====================================================
+   ROW HOVER
+===================================================== */
+
+.loan-management-page .module-table-card tbody tr:hover {
+    transform: translateX(2px);
+}
+
+.loan-management-page .module-table-card tbody tr:hover td {
+    background: #eaf8f3 !important;
+}
+
+
+/* =====================================================
+   CARD HEADER - IF PRESENT
+===================================================== */
+
+.loan-management-page .module-table-card .card-header {
+    background: #2fb79b !important;
+    border: none !important;
+}
+
+.loan-management-page .module-table-card .card-header h4,
+.loan-management-page .module-table-card .card-header h5 {
+    color: #ffffff !important;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.loan-management-page .module-table-card .btn {
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
+}
+
+.loan-management-page .module-table-card .btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.loan-management-page .module-table-card .badge {
+    padding: 6px 10px !important;
+    border-radius: 20px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =====================================================
+   EMPTY TABLE
+===================================================== */
+
+.loan-management-page .module-table-card tbody td.text-center {
+    background: transparent !important;
+    padding: 35px 15px !important;
+}
+
+
+/* =====================================================
+   PUMP FILTER
+===================================================== */
+
+.loan-management-page #pump_filter {
+    border-radius: 8px !important;
+}
+
+
+/* =====================================================
+   TOTAL OUTSTANDING CARD
+===================================================== */
+
+.loan-management-page .module-table-card h5 {
+    color: #294f58 !important;
+}
+
+.loan-management-page .module-table-card h3.text-primary {
+    color: #20b486 !important;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .loan-management-page .module-table-card {
+        border-radius: 16px !important;
+    }
+
+    .loan-management-page .module-table-card thead th,
+    .loan-management-page .module-table-card tbody td {
+        padding: 12px 10px !important;
+    }
+}
 </style>
 
 <div class="loan-management-page">
@@ -801,8 +1317,8 @@ margin-top: -30px;
 <!-- Total Amount Summary Card -->
 <div class="row mb-4">
     <div class="col-12">
-        <div class="card">
-            <div class="card-body">
+      <div class="card module-table-card">
+    <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
                         <h5 class="mb-1">Total Outstanding Amount</h5>
@@ -826,9 +1342,9 @@ margin-top: -30px;
 
 <div class="row">
     <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <!-- Pump Selection -->
+      <div class="card module-table-card">
+    <div class="card-body">
+        <!-- Pump Selection -->
                 <div class="row mb-3">
                     <div class="col-md-2">
                         <label for="pump_filter" class="form-label">Select Pump</label>
